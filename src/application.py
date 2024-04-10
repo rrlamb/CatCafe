@@ -13,6 +13,8 @@ label1=tk.Label(window1, text="CAT CAFE", font=heading_font, foreground="white",
 label1.pack()
 window1.title("CAT CAFE")
 
+
+
 def employee():
     window1.destroy()
     # Employee Window
@@ -23,7 +25,14 @@ def employee():
     label3 = tk.Label(employee, text="Employee View", font=heading_font, foreground="white", bg="light blue")
     label3.pack()
     employee.title("Employee View")
+    def exit():
+        employee.destroy()
+
+    exitBtn = tk.Button(employee, text="Exit", command=exit, bg="pink")
+    exitBtn.pack()
+    exitBtn.place(x=680, y=750)
     employee.mainloop()
+
 
 
 def customer():
@@ -36,15 +45,25 @@ def customer():
     label2 = tk.Label(customer, text="Cat Adoption Information", font=heading_font, foreground="white", bg="light blue")
     label2.pack()
     customer.title("Employee View")
+
+    def exit():
+        customer.destroy()
+
+    exitBtn = tk.Button(customer, text="Exit", command=exit, bg="pink")
+    exitBtn.pack()
+    exitBtn.place(x=680, y=750)
     customer.mainloop()
+
 
 
 customerBtn = tk.Button(window1, text="Customer", command=customer, bg="pink")
 employeeBtn = tk.Button(window1, text="Employee", command=employee, bg="pink")
 
 employeeBtn.pack()
-employeeBtn.place(x=300,y=100)
+employeeBtn.place(x=670,y=100)
 customerBtn.pack()
-customerBtn.place(x=300,y=200)
+customerBtn.place(x=670,y=200)
+
+
 
 window1.mainloop()
