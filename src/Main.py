@@ -14,7 +14,7 @@ def main():
         cursor = cafe.cursor()
 
         cat_insert = "INSERT INTO Cat (cat_name, breed, sex, age, weight, adoption_phone_number) VALUES (%s, %s, %s, %s, %s, %s)"
-        cat_data = ('Daisy', 'American Shorthair', 'F', 1, 5, '1111111111')
+        cat_data = ('cattttttt', 'Shorthair', 'F', 4, 5, '1111111111')
 
         cursor.execute(cat_insert, cat_data)
 
