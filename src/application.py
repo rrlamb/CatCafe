@@ -293,30 +293,44 @@ def create_window1():
 
         def complete_order():
             total_cost=0
+            total_points= 0
             if int(turkeyclub_label["text"]) > 0:
                 turkey_cost = (round((int(turkeyclub_label["text"]) * 12.25), 2))
                 total_cost = total_cost + turkey_cost
+                turkey_points = (int(turkeyclub_label["text"]) * 100)
+                total_points = total_points + turkey_points
 
             if int(toast_label["text"]) > 0:
                 toast_cost = (round((int(toast_label["text"]) * 8.50), 2))
                 total_cost = total_cost + toast_cost
+                toast_points = (int(toast_label["text"]) * 50)
+                total_points = total_points + toast_points
 
             if int(salad_label["text"]) > 0:
                 salad_cost = (round((int(salad_label["text"]) * 10.75), 2))
                 total_cost = total_cost + salad_cost
+                salad_points = (int(salad_label["text"]) * 75)
+                total_points = total_points + salad_points
 
             if int(iced_label["text"]) > 0:
                 iced_cost = (round((int(iced_label["text"]) * 4.50), 2))
                 total_cost = total_cost + iced_cost
+                iced_points = (int(iced_label["text"]) * 25)
+                total_points = total_points + iced_points
 
             if int(hot_label["text"]) > 0:
                 hot_cost = (round((int(hot_label["text"]) * 3.50), 2))
                 total_cost = total_cost + hot_cost
+                hot_points = (int(hot_label["text"]) * 15)
+                total_points = total_points + hot_points
 
             Main.inventory_remove((int(turkeyclub_label["text"])), (int(toast_label["text"])), (int(salad_label["text"])), (int(water_label["text"])), (int(iced_label["text"])), (int(hot_label["text"])));
             final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font, bg="light blue")
             final_cost_label.pack()
             final_cost_label.place(x=800, y=700)
+            earned_points_label = tk.Label(employee, text="Total Points Earned from Order: " + str(total_points) + " points", font=subheading_font, bg="light blue")
+            earned_points_label.pack()
+            earned_points_label.place(x=800, y=750)
 
 
         complete_order_btn = tk.Button(employee, text="Complete Order!", command=complete_order, bg="light blue")
