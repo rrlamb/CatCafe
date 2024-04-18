@@ -313,6 +313,7 @@ def create_window1():
                 hot_cost = (round((int(hot_label["text"]) * 3.50), 2))
                 total_cost = total_cost + hot_cost
 
+            Main.inventory_remove((int(turkeyclub_label["text"])), (int(toast_label["text"])), (int(salad_label["text"])), (int(water_label["text"])), (int(iced_label["text"])), (int(hot_label["text"])));
             final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font, bg="light blue")
             final_cost_label.pack()
             final_cost_label.place(x=800, y=700)
