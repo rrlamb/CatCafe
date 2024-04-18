@@ -1,4 +1,4 @@
-import  mysql.connector
+import mysql.connector
 def view_table(table_name):
     try:
         cafe = mysql.connector.connect(
@@ -139,7 +139,7 @@ def create_customer(customer_email, first_name, last_name):
         cursor = cafe.cursor()
 
 
-        customer_insert = "INSERT INTO Customer (email, first_name, last_name, cat_name) VALUES (%s, %s, %s, %s)"
+        customer_insert = "INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES (%s, %s, %s, %s)"
         customer_values = (customer_email, first_name, last_name, "none")
         cursor.execute(customer_insert, customer_values)
 
@@ -166,23 +166,23 @@ def main():
         cursor = cafe.cursor()
 
         # Insert Initial Values Into Iventory
-        bread_insert = "INSERT INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
+        bread_insert = "INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
         bread_data = ('Bread', 50)
-        turkey_insert = "INSERT INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
+        turkey_insert = "INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
         turkey_data = ('Turkey', 50)
-        lettuce_insert = "INSERT INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
+        lettuce_insert = "INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
         lettuce_data = ('Lettuce', 50)
-        tomato_insert = "INSERT INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
+        tomato_insert = "INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
         tomato_data = ('Tomato', 50)
-        cheese_insert = "INSERT INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
+        cheese_insert = "INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
         cheese_data = ('Cheese', 50)
-        avocado_insert = "INSERT INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
+        avocado_insert = "INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
         avocado_data = ('Avocado', 50)
-        chicken_insert = "INSERT INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
+        chicken_insert = "INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
         chicken_data = ('Chicken', 50)
-        water_insert = "INSERT INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
+        water_insert = "INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
         water_data = ('Water', 50)
-        coffee_insert = "INSERT INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
+        coffee_insert = "INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
         coffee_data = ('Coffee', 50)
 
         cursor.execute(bread_insert, bread_data)
@@ -196,8 +196,31 @@ def main():
         cursor.execute(coffee_insert, coffee_data)
 
 
+        # Insert Initial Values Into Menu Table
+        turkeyclub_insert = "INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES (%s, %s, %s, %s)"
+        #turkeyclub_data = (f'Turkey Club', {add_ons} , 12.25, {employee_id})
+        turkeyclub_data = ('Turkey Club', 'NULL', 12.25, 0)
+        avotoast_insert = "INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES (%s, %s, %s, %s)"
+        avotoast_data = ('Avocado Toast', 'NULL', 8.50, 0)
+        chickensalad_insert = "INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES (%s, %s, %s, %s)"
+        chickensalad_data = ('Chicken Salad', 'NULL', 10.75, 0)
+        watercup_insert = "INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES (%s, %s, %s, %s)"
+        watercup_data = ('Water Cup', 'NULL', 0, 0)
+        icedcoffee_insert = "INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES (%s, %s, %s, %s)"
+        icedcoffee_data = ('Iced Coffee', 'NULL', 4.50, 0)
+        hotcoffee_insert = "INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES (%s, %s, %s, %s)"
+        hotcoffee_data = ('Hot Coffee', 'NULL', 3.50, 0)
+
+        cursor.execute(turkeyclub_insert, turkeyclub_data)
+        cursor.execute(avotoast_insert, avotoast_data)
+        cursor.execute(chickensalad_insert, chickensalad_data)
+        cursor.execute(watercup_insert, watercup_data)
+        cursor.execute(icedcoffee_insert, icedcoffee_data)
+        cursor.execute(hotcoffee_insert, hotcoffee_data)
+
+
         # Insert Initial Values Into Cat
-        cat_insert = "INSERT INTO Cat (cat_name, breed, sex, age, weight, adoption_phone_number) VALUES (%s, %s, %s, %s, %s, %s)"
+        cat_insert = "INSERT IGNORE INTO Cat (cat_name, breed, sex, age, weight, adoption_phone_number) VALUES (%s, %s, %s, %s, %s, %s)"
         cat_data = ('cattttttt', 'Shorthair', 'F', 4, 5, '1111111111')
 
         cursor.execute(cat_insert, cat_data)
@@ -205,6 +228,7 @@ def main():
         cafe.commit()
 
         print("Filled Inventory")
+        print("Filled Menu")
         print("Added cat")
 
     except mysql.connector.Error as e:
