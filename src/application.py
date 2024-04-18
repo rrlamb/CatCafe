@@ -1,7 +1,14 @@
 import tkinter as tk
+from tkinter import ttk
 import random
+import Main
+
+email = ""
+selected_value = ""
 
 def create_window1():
+    global selected_value
+    global email
     window1= tk.Tk()
     window1.configure(bg="light blue")
 
@@ -13,6 +20,70 @@ def create_window1():
     label1=tk.Label(window1, text="CAT CAFE", font=heading_font, foreground="white", bg= "light blue")
     label1.pack()
     window1.title("CAT CAFE")
+
+    def customer_check():
+        customer_check = tk.Tk()
+        customer_check.configure(bg="light blue")
+        customer_check.geometry("1420x1200")
+
+        def check_and_continue():
+            global email
+            email = email_entry.get()
+            if Main.check_customer(email):
+                customer()
+                customer_check.destroy()
+            else:
+                create_customer()
+                customer_check.destroy()
+
+        email_label = tk.Label(customer_check, text="Enter Your Email:")
+        email_label.grid(row=0, column=0, padx=10, pady=5)
+        email_entry = tk.Entry(customer_check)
+        email_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        check_button = tk.Button(customer_check, text="Submit", command=check_and_continue)
+        check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
+
+        customer_check.mainloop()
+
+    def create_customer():
+        create_customer_window = tk.Tk()
+        create_customer_window.configure(bg="light blue")
+        create_customer_window.geometry("1420x1200")
+
+        create_customer_window.title("Create Customer")
+
+        def create_user():
+            global email
+            email = email_entry.get()
+            first_name = first_name_entry.get()
+            last_name = last_name_entry.get()
+
+            # Call a method in main to create the user
+            Main.create_customer(email, first_name, last_name)
+
+            customer()
+            create_customer_window.destroy()
+
+        email_label = tk.Label(create_customer_window, text="Email:")
+        email_label.grid(row=0, column=0, padx=10, pady=5)
+        email_entry = tk.Entry(create_customer_window)
+        email_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        first_name_label = tk.Label(create_customer_window, text="First Name:")
+        first_name_label.grid(row=1, column=0, padx=10, pady=5)
+        first_name_entry = tk.Entry(create_customer_window)
+        first_name_entry.grid(row=1, column=1, padx=10, pady=5)
+
+        last_name_label = tk.Label(create_customer_window, text="Last Name:")
+        last_name_label.grid(row=2, column=0, padx=10, pady=5)
+        last_name_entry = tk.Entry(create_customer_window)
+        last_name_entry.grid(row=2, column=1, padx=10, pady=5)
+
+        create_button = tk.Button(create_customer_window, text="Create Customer", command=create_user)
+        create_button.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
+
+        create_customer_window.mainloop()
 
 
 
@@ -257,6 +328,38 @@ def create_window1():
 
 
     def customer():
+        def on_select(event):
+            global selected_value
+            selected_item = tree.selection()[0]  # Get the selected item
+            selected_values = tree.item(selected_item, 'values')  # Get the values of the selected item
+            selected_value = selected_values[0]
+            # Do something with the selected data
+            print("Selected row:", selected_values[0])
+
+        def select_cat():
+            global email
+            global selected_value
+            Main.select_cat(email, selected_value)
+            view_table("Cat")
+
+        def adopt_cat():
+            global email
+            global selected_value
+            Main.adopt_cat(selected_value)
+            view_table("Cat")
+
+
+        def view_table(table_name):
+            # Fetch data from the database
+            rows = Main.view_table(table_name)
+            # Clear existing data in the Treeview
+            for row in tree.get_children():
+                tree.delete(row)
+
+            # Insert fetched data into the Treeview
+            for row in rows:
+                tree.insert('', 'end', values=row)
+
         window1.destroy()
         # Customer Window
         customer = tk.Tk()
@@ -266,6 +369,30 @@ def create_window1():
         label2 = tk.Label(customer, text="Cat Adoption Information", font=heading_font, foreground="white", bg="light blue")
         label2.pack()
         customer.title("Employee View")
+
+        tree = ttk.Treeview(customer, show="headings")
+        tree["columns"] = ("Cat Name", "Breed", "Sex", "Age", "Weight", "Adoption Phone",
+                           "Customer Name")  # Replace with your column names
+        tree.heading("Cat Name", text="Cat Name")
+        tree.heading("Breed", text="Breed")
+        tree.heading("Sex", text="Sex")
+        tree.heading("Age", text="Age")
+        tree.heading("Weight", text="Weight")
+        tree.heading("Adoption Phone", text="Adoption Phone")
+        tree.heading("Customer Name", text="Customer Name")
+        tree.pack(fill="x", expand=True, side="top")
+
+        tree.bind("<ButtonRelease-1>", on_select)
+
+        view_table("Cat")
+
+        adopt_button = tk.Button(customer, text="Adopt Cat", command=adopt_cat)
+        adopt_button.pack()
+        adopt_button.place(x=680, y=700)
+
+        select_button = tk.Button(customer, text="Select Cat", command=select_cat)
+        select_button.pack()
+        select_button.place(x=680, y=725)
 
         def back():
             customer.destroy()
@@ -279,7 +406,7 @@ def create_window1():
     def exit():
         window1.destroy()
 
-    customerBtn = tk.Button(window1, text="Customer", command=customer, bg="light blue")
+    customerBtn = tk.Button(window1, text="Customer", command=customer_check, bg="light blue")
     employeeBtn = tk.Button(window1, text="Employee", command=employee, bg="light blue")
     exitBtn = tk.Button(window1, text="Exit", command=exit, bg="light blue")
 
