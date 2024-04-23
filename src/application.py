@@ -291,10 +291,12 @@ def create_window1():
         hot_edits.pack()
         hot_edits.place(x=400, y=600)
 
-        customer_email = tk.Text(employee, width=70, height=1.5)
-        customer_email.insert("1.0", "Customer Email (if applicable):")
+        email_label = tk.Label(employee, text="Customer Email (if applicable): ", font=subheading_font, bg="light blue")
+        email_label.pack()
+        email_label.place(x=370, y=650)
+        customer_email = tk.Text(employee, width=50, height=1.5)
         customer_email.pack()
-        customer_email.place(x=450, y=650)
+        customer_email.place(x=600, y=650)
 
         def complete_order():
             total_cost=0
@@ -328,6 +330,14 @@ def create_window1():
                 total_cost = total_cost + hot_cost
                 hot_points = (int(hot_label["text"]) * 15)
                 total_points = total_points + hot_points
+
+            #email = customer_email.get("1.0", "end-1c")
+            #if email:
+                #Main.check_customer(email)
+                #If full, add points to database for corresponding customer
+
+
+
 
             Main.inventory_remove((int(turkeyclub_label["text"])), (int(toast_label["text"])), (int(salad_label["text"])), (int(water_label["text"])), (int(iced_label["text"])), (int(hot_label["text"])));
             final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font, bg="light blue")
