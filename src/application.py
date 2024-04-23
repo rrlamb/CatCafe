@@ -336,16 +336,6 @@ def create_window1():
             if email:
                 if(Main.check_customer(email)):
                     Main.add_customer_points(email, total_points)
-                else:
-                    return
-            else:
-                return
-
-
-
-
-
-
 
             Main.inventory_remove((int(turkeyclub_label["text"])), (int(toast_label["text"])), (int(salad_label["text"])), (int(water_label["text"])), (int(iced_label["text"])), (int(hot_label["text"])));
             final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font, bg="light blue")
