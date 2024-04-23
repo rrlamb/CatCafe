@@ -331,10 +331,18 @@ def create_window1():
                 hot_points = (int(hot_label["text"]) * 15)
                 total_points = total_points + hot_points
 
-            #email = customer_email.get("1.0", "end-1c")
-            #if email:
-                #Main.check_customer(email)
-                #If full, add points to database for corresponding customer
+            email = customer_email.get("1.0", "end-1c")
+            # If full, add points to database for corresponding customer
+            if email:
+                if(Main.check_customer(email)):
+                    Main.add_customer_points(email, total_points)
+                else:
+                    return
+            else:
+                return
+
+
+
 
 
 

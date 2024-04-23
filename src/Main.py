@@ -124,6 +124,31 @@ def check_customer(customer_email):
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
+def add_customer_points(customer_email, total_points):
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected")
+
+        cursor = cafe.cursor()
+        query = "SELECT points FROM Customer WHERE email = %s"
+        cursor.execute(query, (customer_email,))
+        points = cursor.fetchone()
+        new_points = total_points + points
+        query = "UPDATE Customer SET points = %s WHERE email = %s"
+        cursor.execute(query, (new_points, customer_email))
+        # Fetch all rows from the result
+        cursor.close()
+        cafe.close()
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+
 def create_customer(customer_email, first_name, last_name):
     try:
         cafe = mysql.connector.connect(
