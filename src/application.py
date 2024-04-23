@@ -108,7 +108,7 @@ def create_window1():
         #Turkey Club Menu Item
         turkeyclub_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
         turkeyclub_label.pack()
-        turkeyclub_label.place(x=200, y=100)
+        turkeyclub_label.place(x=250, y=100)
 
         def inc():
             current = int(turkeyclub_label["text"])
@@ -127,9 +127,9 @@ def create_window1():
         incBtn = tk.Button(employee, text="+", command=inc, bg="light blue")
         decBtn = tk.Button(employee, text="-", command=dec, bg="light blue")
         incBtn.pack()
-        incBtn.place(x=250, y=100)
+        incBtn.place(x=300, y=100)
         decBtn.pack()
-        decBtn.place(x=300, y=100)
+        decBtn.place(x=350, y=100)
 
         club_edits = tk.Text(employee, width=50, height=1.5)
         club_edits.insert("1.0", "Modifications:")
@@ -140,7 +140,7 @@ def create_window1():
 
         toast_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
         toast_label.pack()
-        toast_label.place(x=200, y=200)
+        toast_label.place(x=250, y=200)
 
         def inc_toast():
             current = int(toast_label["text"])
@@ -158,9 +158,9 @@ def create_window1():
         incBtn_toast = tk.Button(employee, text="+", command=inc_toast, bg="light blue")
         decBtn_toast = tk.Button(employee, text="-", command=dec_toast, bg="light blue")
         incBtn_toast.pack()
-        incBtn_toast.place(x=250, y=200)
+        incBtn_toast.place(x=300, y=200)
         decBtn_toast.pack()
-        decBtn_toast.place(x=300, y=200)
+        decBtn_toast.place(x=350, y=200)
 
         toast_edits = tk.Text(employee, width=50, height=1.5)
         toast_edits.insert("1.0", "Modifications:")
@@ -171,7 +171,7 @@ def create_window1():
         #Chicken Ceasar Salad Menu Item
         salad_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
         salad_label.pack()
-        salad_label.place(x=200, y=300)
+        salad_label.place(x=250, y=300)
 
         def inc_salad():
             current = int(salad_label["text"])
@@ -189,9 +189,9 @@ def create_window1():
         incBtn_salad = tk.Button(employee, text="+", command=inc_salad, bg="light blue")
         decBtn_salad = tk.Button(employee, text="-", command=dec_salad, bg="light blue")
         incBtn_salad.pack()
-        incBtn_salad.place(x=250, y=300)
+        incBtn_salad.place(x=300, y=300)
         decBtn_salad.pack()
-        decBtn_salad.place(x=300, y=300)
+        decBtn_salad.place(x=350, y=300)
 
         salad_edits = tk.Text(employee, width=50, height=1.5)
         salad_edits.insert("1.0", "Modifications:")
@@ -203,7 +203,7 @@ def create_window1():
 
         water_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
         water_label.pack()
-        water_label.place(x=200, y=400)
+        water_label.place(x=250, y=400)
 
         def inc_water():
             current = int(water_label["text"])
@@ -221,9 +221,9 @@ def create_window1():
         incBtn_water = tk.Button(employee, text="+", command=inc_water, bg="light blue")
         decBtn_water = tk.Button(employee, text="-", command=dec_water, bg="light blue")
         incBtn_water.pack()
-        incBtn_water.place(x=250, y=400)
+        incBtn_water.place(x=300, y=400)
         decBtn_water.pack()
-        decBtn_water.place(x=300, y=400)
+        decBtn_water.place(x=350, y=400)
 
         water_edits = tk.Text(employee, width=50, height=1.5)
         water_edits.insert("1.0", "Modifications:")
@@ -233,7 +233,7 @@ def create_window1():
         #Iced Coffee Menu Item
         iced_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
         iced_label.pack()
-        iced_label.place(x=200, y=500)
+        iced_label.place(x=250, y=500)
 
 
         def inc_iced():
@@ -252,9 +252,9 @@ def create_window1():
         incBtn_iced = tk.Button(employee, text="+", command=inc_iced, bg="light blue")
         decBtn_iced = tk.Button(employee, text="-", command=dec_iced, bg="light blue")
         incBtn_iced.pack()
-        incBtn_iced.place(x=250, y=500)
+        incBtn_iced.place(x=300, y=500)
         decBtn_iced.pack()
-        decBtn_iced.place(x=300, y=500)
+        decBtn_iced.place(x=350, y=500)
 
         iced_edits = tk.Text(employee, width=50, height=1.5)
         iced_edits.insert("1.0", "Modifications:")
@@ -264,7 +264,7 @@ def create_window1():
         #Hot Coffee Menu Item
         hot_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
         hot_label.pack()
-        hot_label.place(x=200, y=600)
+        hot_label.place(x=250, y=600)
 
         def inc_hot():
             current = int(hot_label["text"])
@@ -282,9 +282,9 @@ def create_window1():
         incBtn_hot = tk.Button(employee, text="+", command=inc_hot, bg="light blue")
         decBtn_hot = tk.Button(employee, text="-", command=dec_hot, bg="light blue")
         incBtn_hot.pack()
-        incBtn_hot.place(x=250, y=600)
+        incBtn_hot.place(x=300, y=600)
         decBtn_hot.pack()
-        decBtn_hot.place(x=300, y=600)
+        decBtn_hot.place(x=350, y=600)
 
         hot_edits = tk.Text(employee, width=50, height=1.5)
         hot_edits.insert("1.0", "Modifications:")
@@ -296,7 +296,7 @@ def create_window1():
         email_label.place(x=370, y=650)
         customer_email = tk.Text(employee, width=50, height=1.5)
         customer_email.pack()
-        customer_email.place(x=600, y=650)
+        customer_email.place(x=660, y=650)
 
         def complete_order():
             total_cost=0
