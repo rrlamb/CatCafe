@@ -291,6 +291,11 @@ def create_window1():
         hot_edits.pack()
         hot_edits.place(x=400, y=600)
 
+        customer_email = tk.Text(employee, width=70, height=1.5)
+        customer_email.insert("1.0", "Customer Email (if applicable):")
+        customer_email.pack()
+        customer_email.place(x=450, y=650)
+
         def complete_order():
             total_cost=0
             total_points= 0
