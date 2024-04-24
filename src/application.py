@@ -299,6 +299,8 @@ def create_window1():
         customer_email.place(x=660, y=650)
 
         def complete_order():
+            entered_email = customer_email.get("1.0", "end-1c")
+            print(entered_email)
             total_cost=0
             total_points= 0
             if int(turkeyclub_label["text"]) > 0:
@@ -331,11 +333,10 @@ def create_window1():
                 hot_points = (int(hot_label["text"]) * 15)
                 total_points = total_points + hot_points
 
-            email = customer_email.get("1.0", "end-1c")
-            # If full, add points to database for corresponding customer
-            if email:
-                if(Main.check_customer(email)):
-                    Main.add_customer_points(email, total_points)
+
+            if entered_email:
+                if (Main.check_customer(entered_email)):
+                    Main.add_customer_points(entered_email, total_points)
 
             Main.inventory_remove((int(turkeyclub_label["text"])), (int(toast_label["text"])), (int(salad_label["text"])), (int(water_label["text"])), (int(iced_label["text"])), (int(hot_label["text"])));
             final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font, bg="light blue")
