@@ -139,11 +139,14 @@ def add_customer_points(customer_email, total_points):
         cursor = cafe.cursor()
         query = "SELECT points FROM Customer WHERE email = %s"
         cursor.execute(query, (customer_email,))
-        points = cursor.fetchone()
+        points = cursor.fetchone()[0]
+        if points is None:
+            points = 0
         new_points = total_points + points
         query = "UPDATE Customer SET points = %s WHERE email = %s"
         cursor.execute(query, (new_points, customer_email))
         # Fetch all rows from the result
+        cafe.commit()
         cursor.close()
         cafe.close()
     except mysql.connector.Error as e:
@@ -273,8 +276,8 @@ def inventory_remove(club, toast, salad, water, iced, hot):
         cursor = cafe.cursor()
 
         # Update Bread Inventory
-        get_bread = 'SELECT quantity FROM Inventory' 'WHERE inventory_item = %s'
-        get_data = 'Bread'
+        get_bread = 'SELECT quantity FROM Inventory' ' WHERE inventory_item = %s'
+        get_data = ('Bread',)
         cursor.execute(get_bread, get_data)
         bread_result = cursor.fetchone()
         if bread_result:
@@ -292,8 +295,8 @@ def inventory_remove(club, toast, salad, water, iced, hot):
             print("No quantity result found for 'Bread'")
 
         # Update Turkey Inventory
-        get_turkey = 'SELECT quantity FROM Inventory' 'WHERE inventory_item = %s'
-        get_data = 'Turkey'
+        get_turkey = 'SELECT quantity FROM Inventory' ' WHERE inventory_item = %s'
+        get_data = ('Turkey',)
         cursor.execute(get_turkey, get_data)
         turkey_result = cursor.fetchone()
         if turkey_result:
@@ -311,8 +314,8 @@ def inventory_remove(club, toast, salad, water, iced, hot):
             print("No quantity result found for 'Turkey'")
 
         # Update Lettuce Inventory
-        get_lettuce = 'SELECT quantity FROM Inventory' 'WHERE inventory_item = %s'
-        get_data = 'Lettuce'
+        get_lettuce = 'SELECT quantity FROM Inventory' ' WHERE inventory_item = %s'
+        get_data = ('Lettuce',)
         cursor.execute(get_lettuce, get_data)
         lettuce_result = cursor.fetchone()
         if lettuce_result:
@@ -330,8 +333,8 @@ def inventory_remove(club, toast, salad, water, iced, hot):
             print("No quantity result found for 'Lettuce'")
 
         # Update Tomato Inventory
-        get_tomato = 'SELECT quantity FROM Inventory' 'WHERE inventory_item = %s'
-        get_data = 'Tomato'
+        get_tomato = 'SELECT quantity FROM Inventory' ' WHERE inventory_item = %s'
+        get_data = ('Tomato',)
         cursor.execute(get_tomato, get_data)
         tomato_result = cursor.fetchone()
         if tomato_result:
@@ -349,8 +352,8 @@ def inventory_remove(club, toast, salad, water, iced, hot):
             print("No quantity result found for 'Tomato'")
 
         # Update Cheese Inventory
-        get_cheese = 'SELECT quantity FROM Inventory' 'WHERE inventory_item = %s'
-        get_data = 'Cheese'
+        get_cheese = 'SELECT quantity FROM Inventory' ' WHERE inventory_item = %s'
+        get_data = ('Cheese',)
         cursor.execute(get_cheese, get_data)
         cheese_result = cursor.fetchone()
         if cheese_result:
@@ -368,8 +371,8 @@ def inventory_remove(club, toast, salad, water, iced, hot):
             print("No quantity result found for 'Cheese'")
 
         # Update Avocado Inventory
-        get_avocado = 'SELECT quantity FROM Inventory' 'WHERE inventory_item = %s'
-        get_data = 'Avocado'
+        get_avocado = 'SELECT quantity FROM Inventory' ' WHERE inventory_item = %s'
+        get_data = ('Avocado',)
         cursor.execute(get_avocado, get_data)
         avocado_result = cursor.fetchone()
         if avocado_result:
@@ -387,8 +390,8 @@ def inventory_remove(club, toast, salad, water, iced, hot):
             print("No quantity result found for 'Avocado'")
 
         # Update Chicken Inventory
-        get_chicken = 'SELECT quantity FROM Inventory' 'WHERE inventory_item = %s'
-        get_data = 'Chicken'
+        get_chicken = 'SELECT quantity FROM Inventory' ' WHERE inventory_item = %s'
+        get_data = ('Chicken',)
         cursor.execute(get_chicken, get_data)
         chicken_result = cursor.fetchone()
         if chicken_result:
@@ -406,8 +409,8 @@ def inventory_remove(club, toast, salad, water, iced, hot):
             print("No quantity result found for 'Chicken'")
 
         # Update Water Inventory
-        get_water = 'SELECT quantity FROM Inventory' 'WHERE inventory_item = %s'
-        get_data = 'Water'
+        get_water = 'SELECT quantity FROM Inventory' ' WHERE inventory_item = %s'
+        get_data = ('Water',)
         cursor.execute(get_water, get_data)
         water_result = cursor.fetchone()
         if water_result:
@@ -425,8 +428,8 @@ def inventory_remove(club, toast, salad, water, iced, hot):
             print("No quantity result found for 'Water'")
 
         # Update Coffee Inventory
-        get_coffee = 'SELECT quantity FROM Inventory' 'WHERE inventory_item = %s'
-        get_data = 'coffee'
+        get_coffee = 'SELECT quantity FROM Inventory' ' WHERE inventory_item = %s'
+        get_data = ('coffee',)
         cursor.execute(get_coffee, get_data)
         coffee_result = cursor.fetchone()
         if coffee_result:
