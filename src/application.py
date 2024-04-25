@@ -298,6 +298,41 @@ def create_window1():
         customer_email.pack()
         customer_email.place(x=660, y=650)
 
+        def on_select(event):
+            global selected_value
+            selected_item = tree.selection()[0]  # Get the selected item
+            selected_values = tree.item(selected_item, 'values')  # Get the values of the selected item
+            selected_value = selected_values[0]
+            # Do something with the selected data
+            print("Selected row:", selected_values[0])
+
+        tree = ttk.Treeview(employee, show="headings")
+        tree["columns"] = ("Item", "Quantity")
+        tree.heading("Item", text="Item")
+        tree.heading("Quantity", text="Quantity")
+        tree.pack(fill="none", side="right", padx=60, pady=100, anchor='n')
+
+        tree.bind("<ButtonRelease-1>", on_select)
+        def view_table(table_name):
+            # Fetch data from the database
+            rows = Main.view_table(table_name)
+            # Clear existing data in the Treeview
+            for row in tree.get_children():
+                tree.delete(row)
+            # Insert fetched data into the Treeview
+            for row in rows:
+                tree.insert('', 'end', values=row)
+
+
+        # View Inventory Items
+        inventory_items = tk.Label(employee, text="INVENTORY:", font=subheading_font, bg="light blue")
+        inventory_items.pack()
+        inventory_items.place(x=1100, y=100)
+        #Main.inventory_display()
+        view_table("Inventory")
+
+
+
         def complete_order():
             total_cost=0
             total_points= 0
@@ -338,6 +373,7 @@ def create_window1():
                     Main.add_customer_points(email, total_points)
 
             Main.inventory_remove((int(turkeyclub_label["text"])), (int(toast_label["text"])), (int(salad_label["text"])), (int(water_label["text"])), (int(iced_label["text"])), (int(hot_label["text"])));
+            view_table("Inventory")
             final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font, bg="light blue")
             final_cost_label.pack()
             final_cost_label.place(x=800, y=700)
