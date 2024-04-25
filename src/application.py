@@ -49,7 +49,7 @@ def create_window1():
     def create_customer():
         create_customer_window = tk.Tk()
         create_customer_window.configure(bg="light blue")
-        create_customer_window.geometry("1420x1200")
+        create_customer_window.geometry("680x360")
 
         create_customer_window.title("Create Customer")
 
