@@ -1,0 +1,121 @@
+CREATE DATABASE CatCafeInfo;
+USE CatCafeInfo;
+DROP USER 'catcafe'@'localhost';
+CREATE USER 'catcafe'@'localhost' IDENTIFIED BY 'CoffeeCatSandwich';
+
+CREATE TABLE Customer(
+   email VARCHAR(50) PRIMARY KEY,
+   first_name VARCHAR(20) NOT NULL,
+   last_name VARCHAR(50) NOT NULL,
+   points INT UNSIGNED,
+   available_reward VARCHAR(20),
+   cat_name VARCHAR(20) NOT NULL
+   );
+
+   CREATE TABLE Cat(
+   cat_name VARCHAR(20) PRIMARY KEY,
+   breed VARCHAR(20),
+   sex CHAR(1) CHECK (sex IN('F','M','S','N', 'X')),
+   age TINYINT UNSIGNED,
+   weight TINYINT UNSIGNED NOT NULL,
+   adoption_phone_number  CHAR(10) NOT NULL,
+   customer_name VARCHAR(50),
+   FOREIGN KEY (customer_name) REFERENCES Customer(email)
+      ON UPDATE CASCADE
+      ON DELETE CASCADE
+   );
+
+CREATE TABLE Menu(
+	item VARCHAR(25) PRIMARY KEY,
+	add_on VARCHAR(25),
+	price FLOAT NOT NULL,
+	employee_id SMALLINT UNSIGNED NOT NULL
+);
+
+CREATE TABLE Employee(
+   id SMALLINT UNSIGNED PRIMARY KEY,
+   first_name VARCHAR(20) NOT NULL,
+   last_name VARCHAR(50) NOT NULL,
+   role VARCHAR(30) NOT NULL,
+   email VARCHAR(50) UNIQUE NOT NULL,
+   age SMALLINT UNSIGNED,
+   phone_number CHAR(10),
+   bank_account_number VARCHAR(17) NOT NULL
+   );
+
+CREATE TABLE Caretaker(
+   cat_name VARCHAR(20),
+   employee_id SMALLINT UNSIGNED,
+   PRIMARY KEY (cat_name, employee_id),
+   FOREIGN KEY (cat_name) REFERENCES Cat(cat_name)
+      ON UPDATE CASCADE
+      ON DELETE CASCADE,
+   FOREIGN KEY (employee_id) REFERENCES Employee(id)
+      ON UPDATE CASCADE
+      ON DELETE CASCADE
+   );
+
+CREATE TABLE Inventory(
+	inventory_item VARCHAR(25) PRIMARY KEY,
+	quantity SMALLINT NOT NULL
+);
+
+CREATE TABLE Ingredient(
+   menu_item VARCHAR(25),
+   inventory_item VARCHAR(25),
+   employee_id SMALLINT UNSIGNED,
+   PRIMARY KEY (menu_item, inventory_item),
+   FOREIGN KEY (menu_item) REFERENCES Menu(item)
+      ON UPDATE CASCADE
+      ON DELETE CASCADE,
+   FOREIGN KEY (inventory_item) REFERENCES Inventory(inventory_item)
+      ON UPDATE CASCADE
+      ON DELETE CASCADE,
+	FOREIGN KEY (employee_id) REFERENCES Employee(id)
+      ON UPDATE CASCADE
+      ON DELETE CASCADE
+   );
+
+INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('john.smith@gmail.com', 'John', 'Smith', 'Garfield');
+INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('jane.ross@gmail.com', 'Jane', 'Ross', 'Garfield');
+
+ INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Bread', 50);
+ INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Turkey', 50);
+ INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Lettuce', 50);
+ INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Tomato', 50);
+ INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Cheese', 50);
+ INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Avocado', 50);
+ INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Chicken', 50);
+ INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Water', 50);
+ INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Coffee', 50);
+
+ INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES ('Turkey Club', 'NULL', 12.25, 0);
+ INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES ('Avocado Toast', 'NULL', 8.50, 0);
+ INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES ('Chicken Salad', 'NULL', 10.75, 0);
+ INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES ('Water Cup', 'NULL', 0, 0);
+ INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES ('Iced Coffee', 'NULL', 4.50, 0);
+ INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES ('Hot Coffee', 'NULL', 3.50, 0);
+
+INSERT IGNORE INTO Cat (cat_name, breed, sex, age, weight, adoption_phone_number) VALUES ('Garfield', 'Shorthair', 'M', 4, 5, '3045551234');
+
+INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number) VALUES ('1', 'Amanda', 'Morris', 'Caretaker', 'amandamorris89@gmail.com', 55, 3045556789, '11111111111111111');
+
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Turkey Club', 'Bread', '1');
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Turkey Club', 'Turkey', '1');
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Turkey Club', 'Lettuce', '1');
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Turkey Club', 'Tomato', '1');
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Turkey Club', 'Cheese', '1');
+
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Avocado Toast', 'Bread', '1');
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Avocado Toast', 'Avocado', '1');
+
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Chicken Salad', 'Chicken', '1');
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Chicken Salad', 'Lettuce', '1');
+
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Water Cup', 'Water', '1');
+
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Iced Coffee', 'Coffee', '1');
+
+INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Hot Coffee', 'Coffee', '1');
+
+INSERT IGNORE INTO Caretaker (cat_name, employee_id) VALUES ('Garfield', '1');

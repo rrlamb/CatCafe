@@ -49,7 +49,7 @@ def create_window1():
     def create_customer():
         create_customer_window = tk.Tk()
         create_customer_window.configure(bg="light blue")
-        create_customer_window.geometry("1420x1200")
+        create_customer_window.geometry("680x360")
 
         create_customer_window.title("Create Customer")
 
@@ -343,30 +343,38 @@ def create_window1():
                 total_cost = total_cost + turkey_cost
                 turkey_points = (int(turkeyclub_label["text"]) * 100)
                 total_points = total_points + turkey_points
+                turkeyclub_label["text"] = 0
 
             if int(toast_label["text"]) > 0:
                 toast_cost = (round((int(toast_label["text"]) * 8.50), 2))
                 total_cost = total_cost + toast_cost
                 toast_points = (int(toast_label["text"]) * 50)
                 total_points = total_points + toast_points
+                toast_label["text"] = 0
 
             if int(salad_label["text"]) > 0:
                 salad_cost = (round((int(salad_label["text"]) * 10.75), 2))
                 total_cost = total_cost + salad_cost
                 salad_points = (int(salad_label["text"]) * 75)
                 total_points = total_points + salad_points
+                salad_label["text"] = 0
 
             if int(iced_label["text"]) > 0:
                 iced_cost = (round((int(iced_label["text"]) * 4.50), 2))
                 total_cost = total_cost + iced_cost
                 iced_points = (int(iced_label["text"]) * 25)
                 total_points = total_points + iced_points
+                iced_label["text"] = 0
 
             if int(hot_label["text"]) > 0:
                 hot_cost = (round((int(hot_label["text"]) * 3.50), 2))
                 total_cost = total_cost + hot_cost
                 hot_points = (int(hot_label["text"]) * 15)
                 total_points = total_points + hot_points
+                hot_label["text"] = 0
+
+            if int(water_label["text"]) > 0:
+                water_label["text"] = 0
 
 
             if entered_email:
@@ -391,6 +399,8 @@ def create_window1():
             earned_points_label = tk.Label(employee, text="Total Points Earned from Order: " + str(total_points) + " points", font=subheading_font, bg="light blue")
             earned_points_label.pack()
             earned_points_label.place(x=800, y=750)
+
+
 
 
         complete_order_btn = tk.Button(employee, text="Complete Order!", command=complete_order, bg="light blue")
