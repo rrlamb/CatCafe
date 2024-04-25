@@ -375,6 +375,16 @@ def create_window1():
 
             Main.inventory_remove((int(turkeyclub_label["text"])), (int(toast_label["text"])), (int(salad_label["text"])), (int(water_label["text"])), (int(iced_label["text"])), (int(hot_label["text"])));
             view_table("Inventory")
+            if Main.inventory_low():
+                low_items = tk.Label(employee, text="LOW INVENTORY ITEMS: ", font=subheading_font, foreground='red', bg="light blue")
+                low_items.pack()
+                low_items.place(x=1040, y=450)
+                result = Main.inventory_low()
+                my_string = ' , '.join([str(x) for x in result])
+                low_items_list = tk.Label(employee, text=my_string, font=subheading_font, foreground='red', bg="light blue")
+                low_items_list.pack()
+                low_items_list.place(x=1040, y=550)
+
             final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font, bg="light blue")
             final_cost_label.pack()
             final_cost_label.place(x=800, y=700)

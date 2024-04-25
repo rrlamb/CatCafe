@@ -1,4 +1,6 @@
 import mysql.connector
+
+import random
 def view_table(table_name):
     try:
         cafe = mysql.connector.connect(
@@ -261,6 +263,33 @@ def main():
 
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
+
+def inventory_low() -> list[str]:
+    low_list = []
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",  # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected for Procedure")
+        cursor = cafe.cursor()
+
+        item_list= 'SELECT inventory_item FROM Inventory'
+        cursor.execute(item_list)
+        proc_result = cursor.fetchall()
+        for item in proc_result:
+            cursor.callproc('Low_Inventory', item)
+            result = cursor.fetchone()
+            if result:
+                low_list.append(item[0])
+        return low_list
+
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+        return low_list
 
 def inventory_remove(club, toast, salad, water, iced, hot):
     try:
