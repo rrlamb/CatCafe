@@ -201,7 +201,7 @@ def create_window1():
 
         backBtn = tk.Button(employee, text="Back", command=back, bg="light blue")
         backBtn.pack()
-        backBtn.place(x=680, y=750)
+        backBtn.place(x=680, y=825)
 
         #Turkey Club Menu Item
         turkeyclub_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
@@ -391,10 +391,10 @@ def create_window1():
 
         email_label = tk.Label(employee, text="Customer Email (if applicable): ", font=subheading_font, bg="light blue")
         email_label.pack()
-        email_label.place(x=370, y=650)
+        email_label.place(x=370, y=700)
         customer_email = tk.Text(employee, width=50, height=1.5)
         customer_email.pack()
-        customer_email.place(x=660, y=650)
+        customer_email.place(x=660, y=700)
 
         def on_select(event):
             global selected_value
@@ -527,7 +527,7 @@ def create_window1():
 
         complete_order_btn = tk.Button(employee, text="Complete Order!", command=complete_order, bg="light blue")
         complete_order_btn.pack()
-        complete_order_btn.place(x=650, y=700)
+        complete_order_btn.place(x=650, y=775)
 
 
         employee.mainloop()
