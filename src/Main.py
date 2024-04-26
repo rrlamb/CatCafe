@@ -181,6 +181,32 @@ def check_employee(id):
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
+def check_manager(id):
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected")
+
+        cursor = cafe.cursor()
+
+        query = "SELECT * FROM Employee WHERE id = %s && role = 'manager'"
+        cursor.execute(query, (id,))
+
+        #cursor.execute(f"SELECT * FROM Employee WHERE id = {id}")
+        row = cursor.fetchone()
+        # Fetch all rows from the result
+        cursor.close()
+        cafe.close()
+        return row
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+
 def add_customer_points(customer_email, total_points):
     try:
         cafe = mysql.connector.connect(

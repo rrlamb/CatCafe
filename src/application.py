@@ -74,6 +74,32 @@ def create_window1():
 
         update_employee.mainloop()
 
+    def manage_check():
+        manage_check = tk.Tk()
+        manage_check.title("Enter Employee ID")
+        manage_check.configure(bg="light blue")
+        manage_check.geometry("450x360")
+
+        def check():
+            global id
+            id = id_entry.get()
+            if Main.check_manager(id):
+                manage_employees()
+                manage_check.destroy()
+            else:
+                create_employee()
+                manage_check.destroy()
+
+        id_label = tk.Label(manage_check, text="Enter Your Employee ID:")
+        id_label.grid(row=0, column=0, padx=10, pady=5)
+        id_entry = tk.Entry(manage_check)
+        id_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        check_button = tk.Button(manage_check, text="Submit", command=check)
+        check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
+
+        manage_check.mainloop()
+
     def manage_employees():
         global employee_id
         manage_employees_window = tk.Tk()
@@ -83,6 +109,7 @@ def create_window1():
         manage_employees_window.title("Employees")
         warning = tk.Label(manage_employees_window, text="Highlight employees to select them")
         warning.place(x=650, y=0)
+
 
 
 
@@ -396,7 +423,7 @@ def create_window1():
 
         create_employee_window.title("Create Employee")
 
-        def create_employee():
+        def create_employee1():
             global id
             id = id_entry.get()
             first_name = first_name_entry.get()
@@ -458,7 +485,7 @@ def create_window1():
         available_item_entry = tk.Entry(create_employee_window)
         available_item_entry.grid(row=8, column=1, padx=10, pady=5)
 
-        create_button = tk.Button(create_employee_window, text="Create Employee", command=create_employee)
+        create_button = tk.Button(create_employee_window, text="Create Employee", command=create_employee1)
         create_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
 
         create_employee_window.mainloop()
@@ -926,7 +953,7 @@ def create_window1():
 
     customerBtn = tk.Button(window1, text="Customer", command=customer_check, bg="light blue")
     employeeBtn = tk.Button(window1, text="Employee", command=employee_check, bg="light blue")
-    manageBtn = tk.Button(window1, text="Manage Employees", command=manage_employees, bg="light blue")
+    manageBtn = tk.Button(window1, text="Manage Employees", command=manage_check, bg="light blue")
     exitBtn = tk.Button(window1, text="Exit", command=exit, bg="light blue")
 
     employeeBtn.pack()
