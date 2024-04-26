@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, CENTER
 import random
 import Main
 
@@ -99,9 +99,11 @@ def create_window1():
     def delete(id):
         delete_window = tk.Tk()
         delete_window.configure(bg="light blue")
-        delete_window.geometry("680x360")
+        delete_window.geometry("1420x1200")
 
-        delete_window.title("Are You Really Sure You Want To Delete This Employee?")
+        delete_window.title("Are You Sure You Want To Delete This Employee?")
+        warning = tk.Label(delete_window, text="Are you sure you want to delete the following employee? This cannot be undone.")
+        warning.place(x=500, y=0)
 
         def delete_user():
 
@@ -118,10 +120,45 @@ def create_window1():
 
 
 
-        create_button = tk.Button(delete_window, text="Delete User", command=delete_user)
-        create_button.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
-        create_button = tk.Button(delete_window, text="Back", command=back_page)
-        create_button.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+        def view_employee():
+            tree = ttk.Treeview(delete_window, show="headings")
+            tree["columns"] = ("ID", "First Name", "Last Name", "Role", "Email", "Age",
+                               "Phone Number", "Bank Account Number", "Available Item")  # Replace with your column names
+            tree.column("ID", width=100, anchor = CENTER)
+            tree.heading("ID", text="ID")
+            tree.column("First Name", width=100, anchor = CENTER)
+            tree.heading("First Name", text="First Name")
+            tree.column("Last Name", width=100, anchor = CENTER)
+            tree.heading("Last Name", text="Last Name")
+            tree.column("Role", width=100, anchor = CENTER)
+            tree.heading("Role", text="Role")
+            tree.column("Email", width=100, anchor = CENTER)
+            tree.heading("Email", text="Email")
+            tree.column("Age", width=100, anchor = CENTER)
+            tree.heading("Age", text="Age")
+            tree.column("Phone Number", width=100, anchor = CENTER)
+            tree.heading("Phone Number", text="Phone Number")
+            tree.column("Bank Account Number", width=100, anchor = CENTER)
+            tree.heading("Bank Account Number", text="Bank Account Number")
+            tree.column("Available Item", width=100, anchor = CENTER)
+            tree.heading("Available Item", text="Available Item")
+            tree.pack(fill="none", expand=True,  anchor = CENTER)
+            tree.place()
+
+            # Fetch data from the database
+            rows = Main.view_employee(id)
+            # Clear existing data in the Treeview
+            for row in tree.get_children():
+                tree.delete(row)
+            # Insert fetched data into the Treeview
+            for row in rows:
+                tree.insert('', 'end', values=row)
+
+        view_employee()
+        delete_button1 = tk.Button(delete_window, text="Delete User", command=delete_user)
+        delete_button1.place(x=650,y=700)
+        delete_button2 = tk.Button(delete_window, text="Back", command=back_page)
+        delete_button2.place(x=650,y=800)
 
         delete_window.mainloop()
 

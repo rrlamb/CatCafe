@@ -350,6 +350,33 @@ def delete(id):
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
+def view_employee(id):
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected")
+
+        cursor = cafe.cursor()
+
+        statement = "SELECT * FROM EMPLOYEE WHERE id = %s"
+        values = (id[0],)
+        cursor.execute(statement, values)
+
+        # Fetch all rows from the result
+        rows = cursor.fetchall()
+        cursor.close()
+        cafe.close()
+
+        return rows
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+
 def main():
     try:
         cafe = mysql.connector.connect(
