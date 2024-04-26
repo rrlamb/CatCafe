@@ -507,12 +507,12 @@ def create_window1():
             if Main.inventory_low():
                 low_items = tk.Label(employee, text="LOW INVENTORY ITEMS: ", font=subheading_font, foreground='red', bg="light blue")
                 low_items.pack()
-                low_items.place(x=1040, y=450)
+                low_items.place(x=0, y=800)
                 result = Main.inventory_low()
                 my_string = ' , '.join([str(x) for x in result])
                 low_items_list = tk.Label(employee, text=my_string, font=subheading_font, foreground='red', bg="light blue")
                 low_items_list.pack()
-                low_items_list.place(x=1040, y=550)
+                low_items_list.place(x=250, y=800)
 
             final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font, bg="light blue")
             final_cost_label.pack()
