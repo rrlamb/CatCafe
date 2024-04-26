@@ -304,13 +304,13 @@ def inventory_low():
         print("Connected for Procedure")
         cursor = cafe.cursor()
 
-        item_list= 'SELECT inventory_item FROM Inventory'
+        item_list= "SELECT inventory_item FROM Inventory"
         cursor.execute(item_list)
         proc_result = cursor.fetchall()
         for item in proc_result:
-            cursor.callproc('Low_Inventory', item)  # Pass item_name and an output variable (initialized with 0)
-            result = cursor.fetchone()[0]
-            if result:
+            args = (item[0], 0)
+            result = cursor.callproc('Low_Inventory', args)
+            if result[1]==1:
                 low_list.append(item[0])
         return low_list
 
