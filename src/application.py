@@ -46,6 +46,104 @@ def create_window1():
 
         customer_check.mainloop()
 
+    def employee_check():
+        employee_check = tk.Tk()
+        employee_check.configure(bg="light blue")
+        employee_check.geometry("1420x1200")
+
+        def check():
+            global id
+            id = id_entry.get()
+            if Main.check_employee(id):
+                employee()
+                employee_check.destroy()
+            else:
+                create_employee()
+                employee_check.destroy()
+
+        id_label = tk.Label(employee_check, text="Enter Your Employee ID:")
+        id_label.grid(row=0, column=0, padx=10, pady=5)
+        id_entry = tk.Entry(employee_check)
+        id_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        check_button = tk.Button(employee_check, text="Submit", command=check)
+        check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
+
+        employee_check.mainloop()
+    def create_employee():
+        create_employee_window = tk.Tk()
+        create_employee_window.configure(bg="light blue")
+        create_employee_window.geometry("680x360")
+
+        create_employee_window.title("Create Employee")
+
+        def create_employee():
+            global id
+            id = id_entry.get()
+            first_name = first_name_entry.get()
+            last_name = last_name_entry.get()
+            role = role_entry.get()
+            email = email_entry.get()
+            age = age_entry.get()
+            phone_number = phone_number_entry.get()
+            bank_account_number = bank_account_number_entry.get()
+            available_item = available_item_entry.get()
+            # Call a method in main to create the employee
+            Main.create_employee(id, first_name, last_name, role, email, age, phone_number, bank_account_number, available_item)
+            employee()
+            create_employee_window.destroy()
+
+        id_label = tk.Label(create_employee_window, text="ID:")
+        id_label.grid(row=0, column=0, padx=10, pady=5)
+        id_entry = tk.Entry(create_employee_window)
+        id_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        first_name_label = tk.Label(create_employee_window, text="First Name:")
+        first_name_label.grid(row=1, column=0, padx=10, pady=5)
+        first_name_entry = tk.Entry(create_employee_window)
+        first_name_entry.grid(row=1, column=1, padx=10, pady=5)
+
+        last_name_label = tk.Label(create_employee_window, text="Last Name:")
+        last_name_label.grid(row=2, column=0, padx=10, pady=5)
+        last_name_entry = tk.Entry(create_employee_window)
+        last_name_entry.grid(row=2, column=1, padx=10, pady=5)
+
+        role_label = tk.Label(create_employee_window, text="Role:")
+        role_label.grid(row=3, column=0, padx=10, pady=5)
+        role_entry = tk.Entry(create_employee_window)
+        role_entry.grid(row=3, column=1, padx=10, pady=5)
+
+        email_label = tk.Label(create_employee_window, text="Email:")
+        email_label.grid(row=4, column=0, padx=10, pady=5)
+        email_entry = tk.Entry(create_employee_window)
+        email_entry.grid(row=4, column=1, padx=10, pady=5)
+
+        age_label = tk.Label(create_employee_window, text="Age:")
+        age_label.grid(row=5, column=0, padx=10, pady=5)
+        age_entry = tk.Entry(create_employee_window)
+        age_entry.grid(row=5, column=1, padx=10, pady=5)
+
+        phone_number_label = tk.Label(create_employee_window, text="Phone Number:")
+        phone_number_label.grid(row=6, column=0, padx=10, pady=5)
+        phone_number_entry = tk.Entry(create_employee_window)
+        phone_number_entry.grid(row=6, column=1, padx=10, pady=5)
+
+        bank_account_number_label = tk.Label(create_employee_window, text="Bank Account Number:")
+        bank_account_number_label.grid(row=7, column=0, padx=10, pady=5)
+        bank_account_number_entry = tk.Entry(create_employee_window)
+        bank_account_number_entry.grid(row=7, column=1, padx=10, pady=5)
+
+        available_item_label = tk.Label(create_employee_window, text="Available Item:")
+        available_item_label.grid(row=8, column=0, padx=10, pady=5)
+        available_item_entry = tk.Entry(create_employee_window)
+        available_item_entry.grid(row=8, column=1, padx=10, pady=5)
+
+
+        create_button = tk.Button(create_employee_window, text="Create Employee", command=create_employee)
+        create_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
+
+        create_employee_window.mainloop()
+
     def create_customer():
         create_customer_window = tk.Tk()
         create_customer_window.configure(bg="light blue")
@@ -516,7 +614,7 @@ def create_window1():
         window1.destroy()
 
     customerBtn = tk.Button(window1, text="Customer", command=customer_check, bg="light blue")
-    employeeBtn = tk.Button(window1, text="Employee", command=employee, bg="light blue")
+    employeeBtn = tk.Button(window1, text="Employee", command=employee_check, bg="light blue")
     exitBtn = tk.Button(window1, text="Exit", command=exit, bg="light blue")
 
     employeeBtn.pack()

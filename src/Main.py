@@ -153,6 +153,32 @@ def check_customer(customer_email):
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
+def check_employee(id):
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected")
+
+        cursor = cafe.cursor()
+
+        query = "SELECT * FROM Employee WHERE id = %s"
+        cursor.execute(query, (id,))
+
+        #cursor.execute(f"SELECT * FROM Employee WHERE id = {id}")
+        row = cursor.fetchone()
+        # Fetch all rows from the result
+        cursor.close()
+        cafe.close()
+        return row
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+
 def add_customer_points(customer_email, total_points):
     try:
         cafe = mysql.connector.connect(
@@ -201,6 +227,34 @@ def create_customer(customer_email, first_name, last_name):
         cursor.execute(customer_insert, customer_values)
 
         print("created customer")
+        cafe.commit()
+
+        # Fetch all rows from the result
+        cursor.close()
+
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+
+def create_employee(id, first_name, last_name, role, email, age, phone_number, bank_account_number, available_item):
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected")
+
+        cursor = cafe.cursor()
+
+
+        employee_insert = "INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number, available_item) VALUES (%s, %s, %s, %s)"
+        employee_values = (id, first_name, last_name, role, email, age, phone_number, bank_account_number, available_item)
+        cursor.execute(employee_insert, employee_values)
+
+        print("created employee")
         cafe.commit()
 
         # Fetch all rows from the result
