@@ -250,7 +250,7 @@ def create_employee(id, first_name, last_name, role, email, age, phone_number, b
         cursor = cafe.cursor()
 
 
-        employee_insert = "INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number, available_item) VALUES (%s, %s, %s, %s)"
+        employee_insert = "INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number, available_item) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
         employee_values = (id, first_name, last_name, role, email, age, phone_number, bank_account_number, available_item)
         cursor.execute(employee_insert, employee_values)
 
