@@ -267,8 +267,9 @@ def create_window1():
 
     def employee_check():
         employee_check = tk.Tk()
+        employee_check.title("Enter Employee ID")
         employee_check.configure(bg="light blue")
-        employee_check.geometry("1420x1200")
+        employee_check.geometry("450x360")
 
         def check():
             global id
