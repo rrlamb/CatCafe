@@ -337,7 +337,7 @@ def delete(id):
         cursor = cafe.cursor()
 
         query = "DELETE FROM Employee WHERE id = %s"
-        values = (id[0],)
+        values = (id,)
         cursor.execute(query, values)
 
         cafe.commit()

@@ -5,6 +5,7 @@ import Main
 
 email = ""
 selected_value = ""
+employee_id = 0
 
 
 def create_window1():
@@ -46,6 +47,7 @@ def create_window1():
 
         customer_check.mainloop()
 
+
     def update_employee():
         update_employee = tk.Tk()
         update_employee.configure(bg="light blue")
@@ -71,6 +73,106 @@ def create_window1():
 
         update_employee.mainloop()
 
+    def manage_employees():
+        global employee_id
+        manage_employees_window = tk.Tk()
+        manage_employees_window.configure(bg="light blue")
+        manage_employees_window.geometry("1420x1200")
+
+        manage_employees_window.title("Employees")
+        warning = tk.Label(manage_employees_window, text="Highlight employees to select them")
+        warning.place(x=650, y=0)
+
+
+
+
+        def delete_user():
+            global employee_id
+
+            if Main.check_employee(employee_id):
+                if Main.check_employee(employee_id):
+                    delete(Main.check_employee(employee_id))
+                    manage_employees_window.destroy()
+                else:
+                    create_employee()
+                    manage_employees_window.destroy()
+
+        def back_page():
+            create_window1()
+            manage_employees_window.destroy()
+
+        def check_id():
+            global employee_id
+            print (employee_id)
+            if Main.check_employee(employee_id):
+                update(Main.check_employee(employee_id))
+                manage_employees_window.destroy()
+            else:
+                create_employee()
+                manage_employees_window.destroy()
+
+
+
+        def view_employee():
+
+            def on_select(event):
+                global selected_value
+                global employee_id
+                selected_item = tree.selection()[0]  # Get the selected item
+                selected_values = tree.item(selected_item, 'values')  # Get the values of the selected item
+                selected_value = selected_values[0]
+                # Do something with the selected data
+                print("Selected row:", selected_values[0])
+                employee_id = int(selected_values[0])
+
+
+
+            tree = ttk.Treeview(manage_employees_window, show="headings")
+            tree["columns"] = ("ID", "First Name", "Last Name", "Role", "Email", "Age",
+                               "Phone Number", "Bank Account Number", "Available Item")  # Replace with your column names
+            tree.column("ID", width=100, anchor = CENTER)
+            tree.heading("ID", text="ID")
+            tree.column("First Name", width=100, anchor = CENTER)
+            tree.heading("First Name", text="First Name")
+            tree.column("Last Name", width=100, anchor = CENTER)
+            tree.heading("Last Name", text="Last Name")
+            tree.column("Role", width=100, anchor = CENTER)
+            tree.heading("Role", text="Role")
+            tree.column("Email", width=100, anchor = CENTER)
+            tree.heading("Email", text="Email")
+            tree.column("Age", width=100, anchor = CENTER)
+            tree.heading("Age", text="Age")
+            tree.column("Phone Number", width=100, anchor = CENTER)
+            tree.heading("Phone Number", text="Phone Number")
+            tree.column("Bank Account Number", width=100, anchor = CENTER)
+            tree.heading("Bank Account Number", text="Bank Account Number")
+            tree.column("Available Item", width=100, anchor = CENTER)
+            tree.heading("Available Item", text="Available Item")
+            tree.pack(fill="none", expand=True,  anchor = CENTER)
+            tree.place()
+            tree.bind("<ButtonRelease-1>", on_select)
+
+            # Fetch data from the database
+            rows = Main.view_table("Employee")
+            # Clear existing data in the Treeview
+            for row in tree.get_children():
+                tree.delete(row)
+            # Insert fetched data into the Treeview
+            for row in rows:
+                tree.insert('', 'end', values=row)
+
+
+
+        view_employee()
+        delete_button1 = tk.Button(manage_employees_window, text="Add User", command=create_employee)
+        delete_button1.place(x=550,y=800)
+        delete_button2 = tk.Button(manage_employees_window, text="Update User", command=check_id)
+        delete_button2.place(x=650,y=800)
+        delete_button3 = tk.Button(manage_employees_window, text="Delete User", command=delete_user)
+        delete_button3.place(x=750, y=800)
+
+
+        manage_employees_window.mainloop()
     def delete_employee():
         delete_employee = tk.Tk()
         delete_employee.configure(bg="light blue")
@@ -109,7 +211,7 @@ def create_window1():
 
 
             # Call a method in main to create the user
-            Main.delete(id)
+            Main.delete(id[0])
 
             create_window1()
             delete_window.destroy()
@@ -161,6 +263,7 @@ def create_window1():
         delete_button2.place(x=650,y=800)
 
         delete_window.mainloop()
+
 
     def employee_check():
         employee_check = tk.Tk()
@@ -821,18 +924,15 @@ def create_window1():
 
     customerBtn = tk.Button(window1, text="Customer", command=customer_check, bg="light blue")
     employeeBtn = tk.Button(window1, text="Employee", command=employee_check, bg="light blue")
-    updateBtn = tk.Button(window1, text="Update Employee Information", command=update_employee, bg="light blue")
-    deleteBtn = tk.Button(window1, text="Delete Employee", command=delete_employee, bg="light blue")
+    manageBtn = tk.Button(window1, text="Manage Employees", command=manage_employees, bg="light blue")
     exitBtn = tk.Button(window1, text="Exit", command=exit, bg="light blue")
 
     employeeBtn.pack()
     employeeBtn.place(x=670, y=100)
-    updateBtn.pack()
-    updateBtn.place(x=670, y=200)
-    deleteBtn.pack()
-    deleteBtn.place(x=670, y=300)
     customerBtn.pack()
-    customerBtn.place(x=670, y=400)
+    customerBtn.place(x=670, y=200)
+    manageBtn.pack()
+    manageBtn.place(x=670, y=300)
     exitBtn.pack()
     exitBtn.place(x=670, y=750)
 
