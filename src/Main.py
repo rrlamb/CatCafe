@@ -263,6 +263,63 @@ def create_employee(id, first_name, last_name, role, email, age, phone_number, b
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
+def update_employee(id, updateListColumns, updateListValues):
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected")
+
+        cursor = cafe.cursor()
+        i = 0
+        statement = "UPDATE Employee SET"
+        print(updateListColumns)
+        print(updateListValues)
+        while i < len(updateListColumns)-1:
+            statement+=" "
+            statement+=updateListColumns[i]
+            statement+=" = "
+            if isinstance(updateListValues[i], str):
+                statement+="'"
+                statement+= updateListValues[i]
+                statement += "'"
+            else :
+                statement+=updateListValues[i]
+            statement+=","
+            i=i+1
+        print(i)
+        statement += " "
+        statement += updateListColumns[i]
+        statement += " = "
+        if isinstance(updateListValues[i], str):
+            statement += "'"
+            statement += updateListValues[i]
+            statement += "'"
+        else:
+            statement += updateListValues[i]
+        statement += " WHERE id = "
+        statement += str(id[0])
+        statement += ";"
+
+
+        print(statement)
+        employee_update = statement
+        cursor.execute(statement)
+
+        print("updated employee")
+        cafe.commit()
+
+        # Fetch all rows from the result
+        cursor.close()
+
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+
 def main():
     try:
         cafe = mysql.connector.connect(

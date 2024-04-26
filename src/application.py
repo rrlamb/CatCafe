@@ -6,18 +6,18 @@ import Main
 email = ""
 selected_value = ""
 
+
 def create_window1():
     global selected_value
     global email
-    window1= tk.Tk()
+    window1 = tk.Tk()
     window1.configure(bg="light blue")
 
     window1.geometry("1420x1200")
-    heading_font=("Georgia", 38, "bold")
-    subheading_font=("Georgia", 15)
+    heading_font = ("Georgia", 38, "bold")
+    subheading_font = ("Georgia", 15)
 
-
-    label1=tk.Label(window1, text="CAT CAFE", font=heading_font, foreground="white", bg= "light blue")
+    label1 = tk.Label(window1, text="CAT CAFE", font=heading_font, foreground="white", bg="light blue")
     label1.pack()
     window1.title("CAT CAFE")
 
@@ -46,6 +46,31 @@ def create_window1():
 
         customer_check.mainloop()
 
+    def update_employee():
+        update_employee = tk.Tk()
+        update_employee.configure(bg="light blue")
+        update_employee.geometry("1420x1200")
+
+        def check_id():
+            global id
+            id = id_entry.get()
+            if Main.check_employee(id):
+                update(Main.check_employee(id))
+                update_employee.destroy()
+            else:
+                create_employee()
+                update_employee.destroy()
+
+        id_label = tk.Label(update_employee, text="Enter Employee ID to Update Information For:")
+        id_label.grid(row=0, column=0, padx=10, pady=5)
+        id_entry = tk.Entry(update_employee)
+        id_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        check_button = tk.Button(update_employee, text="Submit", command=check_id)
+        check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
+
+        update_employee.mainloop()
+
     def employee_check():
         employee_check = tk.Tk()
         employee_check.configure(bg="light blue")
@@ -70,6 +95,104 @@ def create_window1():
         check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
 
         employee_check.mainloop()
+
+    def update(id):
+        update_window = tk.Tk()
+        update_window.configure(bg="light blue")
+        update_window.geometry("680x360")
+
+        update_window.title("Update Employee Information: Only enter information for what you want to update")
+
+        def update_employee():
+            update_listColumns=[]
+            update_listValues=[]
+            first_name = first_name_entry.get()
+            if(len(first_name)!=0):
+                update_listColumns.append("first_name")
+                update_listValues.append(first_name)
+            last_name = last_name_entry.get()
+            if (len(last_name) != 0):
+                update_listColumns.append("last_name")
+                update_listValues.append(last_name)
+            role = role_entry.get()
+            if (len(role) != 0):
+                update_listColumns.append("role")
+                update_listValues.append(role)
+            email = email_entry.get()
+            if (len(email) != 0):
+                update_listColumns.append("email")
+                update_listValues.append(email)
+            age = age_entry.get()
+            if (len(age) != 0):
+                update_listColumns.append("age")
+                update_listValues.append(age)
+            phone_number = phone_number_entry.get()
+            if (len(phone_number) != 0):
+                update_listColumns.append("phone_number")
+                update_listValues.append(phone_number)
+            bank_account_number = bank_account_number_entry.get()
+            if (len(bank_account_number) != 0):
+                update_listColumns.append("bank_account_number")
+                update_listValues.append(bank_account_number)
+            available_item = available_item_entry.get()
+            if (len(available_item) != 0):
+                update_listColumns.append("available_item")
+                update_listValues.append(available_item)
+
+
+            # Call a method in main to update the employee
+            Main.update_employee(id, update_listColumns, update_listValues)
+            create_window1()
+            update_window.destroy()
+
+        first_name_label = tk.Label(update_window, text="Updating information for:" + str(id[0]))
+        first_name_label.grid(row=0, column=0, padx=10, pady=5)
+
+        first_name_label = tk.Label(update_window, text="First Name:")
+        first_name_label.grid(row=1, column=0, padx=10, pady=5)
+        first_name_entry = tk.Entry(update_window)
+        first_name_entry.grid(row=1, column=1, padx=10, pady=5)
+
+        last_name_label = tk.Label(update_window, text="Last Name:")
+        last_name_label.grid(row=2, column=0, padx=10, pady=5)
+        last_name_entry = tk.Entry(update_window)
+        last_name_entry.grid(row=2, column=1, padx=10, pady=5)
+
+        role_label = tk.Label(update_window, text="Role:")
+        role_label.grid(row=3, column=0, padx=10, pady=5)
+        role_entry = tk.Entry(update_window)
+        role_entry.grid(row=3, column=1, padx=10, pady=5)
+
+        email_label = tk.Label(update_window, text="Email:")
+        email_label.grid(row=4, column=0, padx=10, pady=5)
+        email_entry = tk.Entry(update_window)
+        email_entry.grid(row=4, column=1, padx=10, pady=5)
+
+        age_label = tk.Label(update_window, text="Age:")
+        age_label.grid(row=5, column=0, padx=10, pady=5)
+        age_entry = tk.Entry(update_window)
+        age_entry.grid(row=5, column=1, padx=10, pady=5)
+
+        phone_number_label = tk.Label(update_window, text="Phone Number:")
+        phone_number_label.grid(row=6, column=0, padx=10, pady=5)
+        phone_number_entry = tk.Entry(update_window)
+        phone_number_entry.grid(row=6, column=1, padx=10, pady=5)
+
+        bank_account_number_label = tk.Label(update_window, text="Bank Account Number:")
+        bank_account_number_label.grid(row=7, column=0, padx=10, pady=5)
+        bank_account_number_entry = tk.Entry(update_window)
+        bank_account_number_entry.grid(row=7, column=1, padx=10, pady=5)
+
+        available_item_label = tk.Label(update_window, text="Available Item:")
+        available_item_label.grid(row=8, column=0, padx=10, pady=5)
+        available_item_entry = tk.Entry(update_window)
+        available_item_entry.grid(row=8, column=1, padx=10, pady=5)
+
+        submit_button = tk.Button(update_window, text="Update Employee", command=update_employee)
+        submit_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
+
+        update_window.mainloop()
+
     def create_employee():
         create_employee_window = tk.Tk()
         create_employee_window.configure(bg="light blue")
@@ -89,7 +212,8 @@ def create_window1():
             bank_account_number = bank_account_number_entry.get()
             available_item = available_item_entry.get()
             # Call a method in main to create the employee
-            Main.create_employee(id, first_name, last_name, role, email, age, phone_number, bank_account_number, available_item)
+            Main.create_employee(id, first_name, last_name, role, email, age, phone_number, bank_account_number,
+                                 available_item)
             employee()
             create_employee_window.destroy()
 
@@ -138,7 +262,6 @@ def create_window1():
         available_item_entry = tk.Entry(create_employee_window)
         available_item_entry.grid(row=8, column=1, padx=10, pady=5)
 
-
         create_button = tk.Button(create_employee_window, text="Create Employee", command=create_employee)
         create_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
 
@@ -183,8 +306,6 @@ def create_window1():
 
         create_customer_window.mainloop()
 
-
-
     def employee():
         window1.destroy()
         # Employee Window
@@ -195,6 +316,7 @@ def create_window1():
         label3 = tk.Label(employee, text="Employee View", font=heading_font, foreground="white", bg="light blue")
         label3.pack()
         employee.title("Employee View")
+
         def back():
             employee.destroy()
             create_window1()
@@ -220,7 +342,6 @@ def create_window1():
         turkey_price = tk.Label(employee, text="1. Turkey Club: $12.25 ", font=subheading_font, bg="light blue")
         turkey_price.pack()
         turkey_price.place(x=0, y=100)
-
 
         incBtn = tk.Button(employee, text="+", command=inc, bg="light blue")
         decBtn = tk.Button(employee, text="-", command=dec, bg="light blue")
@@ -265,7 +386,6 @@ def create_window1():
         toast_edits.pack()
         toast_edits.place(x=400, y=200)
 
-
         #Chicken Ceasar Salad Menu Item
         salad_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
         salad_label.pack()
@@ -295,7 +415,6 @@ def create_window1():
         salad_edits.insert("1.0", "Modifications:")
         salad_edits.pack()
         salad_edits.place(x=400, y=300)
-
 
         #Water Cup Menu Item
 
@@ -332,7 +451,6 @@ def create_window1():
         iced_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
         iced_label.pack()
         iced_label.place(x=250, y=500)
-
 
         def inc_iced():
             current = int(iced_label["text"])
@@ -411,6 +529,7 @@ def create_window1():
         tree.pack(fill="none", side="right", padx=60, pady=100, anchor='n')
 
         tree.bind("<ButtonRelease-1>", on_select)
+
         def view_table(table_name):
             # Fetch data from the database
             rows = Main.view_table(table_name)
@@ -420,7 +539,6 @@ def create_window1():
             # Insert fetched data into the Treeview
             for row in rows:
                 tree.insert('', 'end', values=row)
-
 
         # View Inventory Items
         inventory_items = tk.Label(employee, text="INVENTORY:", font=subheading_font, bg="light blue")
@@ -445,7 +563,6 @@ def create_window1():
             for row in rows:
                 tree2.insert('', 'end', values=row)
 
-
         # View Inventory Items
         customercat = tk.Label(employee, text="Customer and Cat:", font=subheading_font, bg="light blue")
         customercat.pack()
@@ -455,14 +572,13 @@ def create_window1():
         def complete_order():
             entered_email = customer_email.get("1.0", "end-1c")
             print(entered_email)
-            total_cost=0
-            total_points= 0
+            total_cost = 0
+            total_points = 0
             if int(turkeyclub_label["text"]) > 0:
                 turkey_cost = (round((int(turkeyclub_label["text"]) * 12.25), 2))
                 total_cost = total_cost + turkey_cost
                 turkey_points = (int(turkeyclub_label["text"]) * 100)
                 total_points = total_points + turkey_points
-
 
             if int(toast_label["text"]) > 0:
                 toast_cost = (round((int(toast_label["text"]) * 8.50), 2))
@@ -470,20 +586,17 @@ def create_window1():
                 toast_points = (int(toast_label["text"]) * 50)
                 total_points = total_points + toast_points
 
-
             if int(salad_label["text"]) > 0:
                 salad_cost = (round((int(salad_label["text"]) * 10.75), 2))
                 total_cost = total_cost + salad_cost
                 salad_points = (int(salad_label["text"]) * 75)
                 total_points = total_points + salad_points
 
-
             if int(iced_label["text"]) > 0:
                 iced_cost = (round((int(iced_label["text"]) * 4.50), 2))
                 total_cost = total_cost + iced_cost
                 iced_points = (int(iced_label["text"]) * 25)
                 total_points = total_points + iced_points
-
 
             if int(hot_label["text"]) > 0:
                 hot_cost = (round((int(hot_label["text"]) * 3.50), 2))
@@ -495,7 +608,9 @@ def create_window1():
                 if (Main.check_customer(entered_email)):
                     Main.add_customer_points(entered_email, total_points)
 
-            Main.inventory_remove((int(turkeyclub_label["text"])), (int(toast_label["text"])), (int(salad_label["text"])), (int(water_label["text"])), (int(iced_label["text"])), (int(hot_label["text"])));
+            Main.inventory_remove((int(turkeyclub_label["text"])), (int(toast_label["text"])),
+                                  (int(salad_label["text"])), (int(water_label["text"])), (int(iced_label["text"])),
+                                  (int(hot_label["text"])));
 
             hot_label["text"] = 0
             water_label["text"] = 0
@@ -505,34 +620,34 @@ def create_window1():
             turkeyclub_label["text"] = 0
 
             if Main.inventory_low():
-                low_items = tk.Label(employee, text="LOW INVENTORY ITEMS: ", font=subheading_font, foreground='red', bg="light blue")
+                low_items = tk.Label(employee, text="LOW INVENTORY ITEMS: ", font=subheading_font, foreground='red',
+                                     bg="light blue")
                 low_items.pack()
                 low_items.place(x=0, y=800)
                 result = Main.inventory_low()
                 my_string = ' , '.join([str(x) for x in result])
-                low_items_list = tk.Label(employee, text=my_string, font=subheading_font, foreground='red', bg="light blue")
+                low_items_list = tk.Label(employee, text=my_string, font=subheading_font, foreground='red',
+                                          bg="light blue")
                 low_items_list.pack()
                 low_items_list.place(x=250, y=800)
 
-            final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font, bg="light blue")
+            final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font,
+                                        bg="light blue")
             final_cost_label.pack()
             final_cost_label.place(x=800, y=700)
-            earned_points_label = tk.Label(employee, text="Total Points Earned from Order: " + str(total_points) + " points", font=subheading_font, bg="light blue")
+            earned_points_label = tk.Label(employee,
+                                           text="Total Points Earned from Order: " + str(total_points) + " points",
+                                           font=subheading_font, bg="light blue")
             earned_points_label.pack()
             earned_points_label.place(x=800, y=750)
 
             view_table("Inventory")
 
-
-
         complete_order_btn = tk.Button(employee, text="Complete Order!", command=complete_order, bg="light blue")
         complete_order_btn.pack()
         complete_order_btn.place(x=650, y=775)
 
-
         employee.mainloop()
-
-
 
     def customer():
         def on_select(event):
@@ -555,7 +670,6 @@ def create_window1():
             Main.adopt_cat(selected_value)
             view_table("Cat")
 
-
         def view_table(table_name):
             # Fetch data from the database
             rows = Main.view_table(table_name)
@@ -573,7 +687,8 @@ def create_window1():
         customer.configure(bg="light blue")
         customer.geometry("1420x1200")
         # Header saying name of window
-        label2 = tk.Label(customer, text="Cat Adoption Information", font=heading_font, foreground="white", bg="light blue")
+        label2 = tk.Label(customer, text="Cat Adoption Information", font=heading_font, foreground="white",
+                          bg="light blue")
         label2.pack()
         customer.title("Employee View")
 
@@ -615,12 +730,15 @@ def create_window1():
 
     customerBtn = tk.Button(window1, text="Customer", command=customer_check, bg="light blue")
     employeeBtn = tk.Button(window1, text="Employee", command=employee_check, bg="light blue")
+    updateBtn = tk.Button(window1, text="Update Employee Information", command=update_employee, bg="light blue")
     exitBtn = tk.Button(window1, text="Exit", command=exit, bg="light blue")
 
     employeeBtn.pack()
-    employeeBtn.place(x=670,y=100)
+    employeeBtn.place(x=670, y=100)
+    updateBtn.pack()
+    updateBtn.place(x=670, y=200)
     customerBtn.pack()
-    customerBtn.place(x=670,y=200)
+    customerBtn.place(x=670, y=300)
     exitBtn.pack()
     exitBtn.place(x=670, y=750)
 
