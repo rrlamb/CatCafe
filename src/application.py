@@ -71,6 +71,60 @@ def create_window1():
 
         update_employee.mainloop()
 
+    def delete_employee():
+        delete_employee = tk.Tk()
+        delete_employee.configure(bg="light blue")
+        delete_employee.geometry("1420x1200")
+
+        def check_id_delete():
+            global id
+            id = id_entry.get()
+            if Main.check_employee(id):
+                delete(Main.check_employee(id))
+                delete_employee.destroy()
+            else:
+                create_employee()
+                delete_employee.destroy()
+
+        id_label = tk.Label(delete_employee, text="Enter Employee ID to Delete:")
+        id_label.grid(row=0, column=0, padx=10, pady=5)
+        id_entry = tk.Entry(delete_employee)
+        id_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        check_button = tk.Button(delete_employee, text="Submit", command=check_id_delete)
+        check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
+
+        delete_employee.mainloop()
+
+    def delete(id):
+        delete_window = tk.Tk()
+        delete_window.configure(bg="light blue")
+        delete_window.geometry("680x360")
+
+        delete_window.title("Are You Really Sure You Want To Delete This Employee?")
+
+        def delete_user():
+
+
+            # Call a method in main to create the user
+            Main.delete(id)
+
+            create_window1()
+            delete_window.destroy()
+
+        def back_page():
+            create_window1()
+            delete_window.destroy()
+
+
+
+        create_button = tk.Button(delete_window, text="Delete User", command=delete_user)
+        create_button.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
+        create_button = tk.Button(delete_window, text="Back", command=back_page)
+        create_button.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+
+        delete_window.mainloop()
+
     def employee_check():
         employee_check = tk.Tk()
         employee_check.configure(bg="light blue")
@@ -731,14 +785,17 @@ def create_window1():
     customerBtn = tk.Button(window1, text="Customer", command=customer_check, bg="light blue")
     employeeBtn = tk.Button(window1, text="Employee", command=employee_check, bg="light blue")
     updateBtn = tk.Button(window1, text="Update Employee Information", command=update_employee, bg="light blue")
+    deleteBtn = tk.Button(window1, text="Delete Employee", command=delete_employee, bg="light blue")
     exitBtn = tk.Button(window1, text="Exit", command=exit, bg="light blue")
 
     employeeBtn.pack()
     employeeBtn.place(x=670, y=100)
     updateBtn.pack()
     updateBtn.place(x=670, y=200)
+    deleteBtn.pack()
+    deleteBtn.place(x=670, y=300)
     customerBtn.pack()
-    customerBtn.place(x=670, y=300)
+    customerBtn.place(x=670, y=400)
     exitBtn.pack()
     exitBtn.place(x=670, y=750)
 

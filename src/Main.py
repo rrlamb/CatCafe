@@ -102,6 +102,8 @@ def select_cat(customer_email, cat_name):
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
+
+
 def adopt_cat(cat_name):
     try:
         cafe = mysql.connector.connect(
@@ -316,6 +318,34 @@ def update_employee(id, updateListColumns, updateListValues):
 
         # Fetch all rows from the result
         cursor.close()
+
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+
+def delete(id):
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected")
+
+        cursor = cafe.cursor()
+
+        query = "DELETE FROM Employee WHERE id = %s"
+        values = (id[0],)
+        cursor.execute(query, values)
+
+        cafe.commit()
+        print("deleted employee")
+
+        # Fetch all rows from the result
+        cursor.close()
+        cafe.close()
 
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
