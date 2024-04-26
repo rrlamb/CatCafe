@@ -828,12 +828,12 @@ def create_window1():
             final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font,
                                         bg="light blue")
             final_cost_label.pack()
-            final_cost_label.place(x=800, y=700)
+            final_cost_label.place(x=800, y=800)
             earned_points_label = tk.Label(employee,
                                            text="Total Points Earned from Order: " + str(total_points) + " points",
                                            font=subheading_font, bg="light blue")
             earned_points_label.pack()
-            earned_points_label.place(x=800, y=750)
+            earned_points_label.place(x=800, y=850)
 
             view_table("Inventory")
 
