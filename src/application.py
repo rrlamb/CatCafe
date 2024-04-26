@@ -87,8 +87,12 @@ def create_window1():
                 manage_employees()
                 manage_check.destroy()
             else:
-                create_employee()
-                manage_check.destroy()
+                id_label = tk.Label(manage_check, text="That is not a valid ID")
+                id_label.grid(row=1, column=0, padx=10, pady=5)
+
+        def back_page():
+            create_window1()
+            manage_check.destroy()
 
         id_label = tk.Label(manage_check, text="Enter Your Employee ID:")
         id_label.grid(row=0, column=0, padx=10, pady=5)
@@ -96,7 +100,10 @@ def create_window1():
         id_entry.grid(row=0, column=1, padx=10, pady=5)
 
         check_button = tk.Button(manage_check, text="Submit", command=check)
-        check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
+        check_button.grid(row=2, column=0, columnspan=2, padx=10, pady=5)
+
+        back_button = tk.Button(manage_check, text="Back", command=back_page)
+        back_button.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
 
         manage_check.mainloop()
 
@@ -138,6 +145,7 @@ def create_window1():
             else:
                 create_employee()
                 manage_employees_window.destroy()
+
 
 
 
@@ -306,8 +314,12 @@ def create_window1():
                 employee()
                 employee_check.destroy()
             else:
-                create_employee()
-                employee_check.destroy()
+                id_label = tk.Label(employee_check, text="That is not a valid ID")
+                id_label.grid(row=1, column=0, padx=10, pady=5)
+
+        def back_page():
+            create_window1()
+            employee_check.destroy()
 
         id_label = tk.Label(employee_check, text="Enter Your Employee ID:")
         id_label.grid(row=0, column=0, padx=10, pady=5)
@@ -315,7 +327,10 @@ def create_window1():
         id_entry.grid(row=0, column=1, padx=10, pady=5)
 
         check_button = tk.Button(employee_check, text="Submit", command=check)
-        check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
+        check_button.grid(row=2, column=0, columnspan=2, padx=10, pady=5)
+
+        back_button = tk.Button(employee_check, text="Back", command=back_page)
+        back_button.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
 
         employee_check.mainloop()
 
