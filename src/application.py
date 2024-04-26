@@ -328,10 +328,31 @@ def create_window1():
         inventory_items = tk.Label(employee, text="INVENTORY:", font=subheading_font, bg="light blue")
         inventory_items.pack()
         inventory_items.place(x=1100, y=100)
-        #Main.inventory_display()
         view_table("Inventory")
 
+        tree2 = ttk.Treeview(employee, show="headings")
+        tree2["columns"] = ("Customer Name", "Cat Name")
+        tree2.heading("Customer Name", text="Customer Name")
+        tree2.heading("Cat Name", text="Cat Name")
+        tree2.pack(fill="none", side="right", anchor='n')
+        tree2.place(x=957, y=440)
 
+        def view_join_table():
+            # Fetch data from the database
+            rows = Main.view_join_table()
+            # Clear existing data in the Treeview
+            for row in tree2.get_children():
+                tree2.delete(row)
+            # Insert fetched data into the Treeview
+            for row in rows:
+                tree2.insert('', 'end', values=row)
+
+
+        # View Inventory Items
+        customercat = tk.Label(employee, text="Customer and Cat:", font=subheading_font, bg="light blue")
+        customercat.pack()
+        customercat.place(x=1100, y=400)
+        view_join_table()
 
         def complete_order():
             entered_email = customer_email.get("1.0", "end-1c")
@@ -343,46 +364,48 @@ def create_window1():
                 total_cost = total_cost + turkey_cost
                 turkey_points = (int(turkeyclub_label["text"]) * 100)
                 total_points = total_points + turkey_points
-                turkeyclub_label["text"] = 0
+
 
             if int(toast_label["text"]) > 0:
                 toast_cost = (round((int(toast_label["text"]) * 8.50), 2))
                 total_cost = total_cost + toast_cost
                 toast_points = (int(toast_label["text"]) * 50)
                 total_points = total_points + toast_points
-                toast_label["text"] = 0
+
 
             if int(salad_label["text"]) > 0:
                 salad_cost = (round((int(salad_label["text"]) * 10.75), 2))
                 total_cost = total_cost + salad_cost
                 salad_points = (int(salad_label["text"]) * 75)
                 total_points = total_points + salad_points
-                salad_label["text"] = 0
+
 
             if int(iced_label["text"]) > 0:
                 iced_cost = (round((int(iced_label["text"]) * 4.50), 2))
                 total_cost = total_cost + iced_cost
                 iced_points = (int(iced_label["text"]) * 25)
                 total_points = total_points + iced_points
-                iced_label["text"] = 0
+
 
             if int(hot_label["text"]) > 0:
                 hot_cost = (round((int(hot_label["text"]) * 3.50), 2))
                 total_cost = total_cost + hot_cost
                 hot_points = (int(hot_label["text"]) * 15)
                 total_points = total_points + hot_points
-                hot_label["text"] = 0
-
-            if int(water_label["text"]) > 0:
-                water_label["text"] = 0
-
 
             if entered_email:
                 if (Main.check_customer(entered_email)):
                     Main.add_customer_points(entered_email, total_points)
 
             Main.inventory_remove((int(turkeyclub_label["text"])), (int(toast_label["text"])), (int(salad_label["text"])), (int(water_label["text"])), (int(iced_label["text"])), (int(hot_label["text"])));
-            view_table("Inventory")
+
+            hot_label["text"] = 0
+            water_label["text"] = 0
+            iced_label["text"] = 0
+            salad_label["text"] = 0
+            toast_label["text"] = 0
+            turkeyclub_label["text"] = 0
+
             if Main.inventory_low():
                 low_items = tk.Label(employee, text="LOW INVENTORY ITEMS: ", font=subheading_font, foreground='red', bg="light blue")
                 low_items.pack()
@@ -400,6 +423,7 @@ def create_window1():
             earned_points_label.pack()
             earned_points_label.place(x=800, y=750)
 
+            view_table("Inventory")
 
 
 

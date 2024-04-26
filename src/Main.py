@@ -26,6 +26,31 @@ def view_table(table_name):
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
+def view_join_table():
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected")
+
+        cursor = cafe.cursor()
+
+        cursor.execute(f"SELECT Customer.first_name, Cat.cat_name FROM Customer, Cat WHERE Customer.email = Cat.customer_name")
+
+        # Fetch all rows from the result
+        rows = cursor.fetchall()
+        cursor.close()
+        cafe.close()
+
+        return rows
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+
 def delete_row(primary_key):
     try:
         cafe = mysql.connector.connect(
@@ -65,6 +90,8 @@ def select_cat(customer_email, cat_name):
 
         query = "UPDATE Cat SET customer_name = %s WHERE cat_name = %s"
         cursor.execute(query, (customer_email,cat_name ))
+        query = "UPDATE Customer SET cat_name = %s WHERE email = %s"
+        cursor.execute(query, (cat_name,customer_email,))
         cafe.commit()
         print("update")
 
@@ -264,7 +291,7 @@ def main():
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
-def inventory_low() -> list[str]:
+def inventory_low():
     low_list = []
     try:
         cafe = mysql.connector.connect(
@@ -281,8 +308,8 @@ def inventory_low() -> list[str]:
         cursor.execute(item_list)
         proc_result = cursor.fetchall()
         for item in proc_result:
-            cursor.callproc('Low_Inventory', item)
-            result = cursor.fetchone()
+            cursor.callproc('Low_Inventory', item)  # Pass item_name and an output variable (initialized with 0)
+            result = cursor.fetchone()[0]
             if result:
                 low_list.append(item[0])
         return low_list
