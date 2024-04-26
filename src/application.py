@@ -24,8 +24,9 @@ def create_window1():
 
     def customer_check():
         customer_check = tk.Tk()
+        customer_check.title("Enter Customer Email")
         customer_check.configure(bg="light blue")
-        customer_check.geometry("1420x1200")
+        customer_check.geometry("450x360")
 
         def check_and_continue():
             global email
