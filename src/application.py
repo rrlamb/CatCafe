@@ -410,7 +410,7 @@ def create_window1():
             # Call a method in main to create the employee
             Main.create_employee(id, first_name, last_name, role, email, age, phone_number, bank_account_number,
                                  available_item)
-            employee()
+            create_window1()
             create_employee_window.destroy()
 
         id_label = tk.Label(create_employee_window, text="ID:")
