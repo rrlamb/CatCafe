@@ -74,6 +74,7 @@ def create_window1():
 
         update_employee.mainloop()
 
+
     def manage_check():
         manage_check = tk.Tk()
         manage_check.title("Enter Employee ID of Manager:")
@@ -107,6 +108,129 @@ def create_window1():
 
         manage_check.mainloop()
 
+    def manage_check2():
+        manage_check2 = tk.Tk()
+        manage_check2.title("Enter Employee ID of Manager:")
+        manage_check2.configure(bg="light blue")
+        manage_check2.geometry("450x360")
+
+        def check():
+            global id
+            id = id_entry.get()
+            if Main.check_manager(id):
+                manage_inventory()
+                manage_check2.destroy()
+            else:
+                id_label = tk.Label(manage_check2, text="You must be a manager to access this")
+                id_label.grid(row=1, column=0, padx=10, pady=5)
+
+        def back_page():
+            create_window1()
+            manage_check2.destroy()
+
+        id_label = tk.Label(manage_check2, text="Enter Employee ID of Manager:")
+        id_label.grid(row=0, column=0, padx=10, pady=5)
+        id_entry = tk.Entry(manage_check2)
+        id_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        check_button = tk.Button(manage_check2, text="Submit", command=check)
+        check_button.grid(row=2, column=0, columnspan=2, padx=10, pady=5)
+
+        back_button = tk.Button(manage_check2, text="Back", command=back_page)
+        back_button.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
+
+        manage_check2.mainloop()
+    def manage_inventory():
+        global employee_id
+        manage_inventory_window = tk.Tk()
+        manage_inventory_window.configure(bg="light blue")
+        manage_inventory_window.geometry("1420x1200")
+
+        manage_inventory_window.title("Inventory")
+        warning = tk.Label(manage_inventory_window, text="Highlight items to select them")
+        warning.place(x=650, y=0)
+
+
+
+        def on_select(event):
+            global selected_value
+            selected_item = tree.selection()[0]  # Get the selected item
+            selected_values = tree.item(selected_item, 'values')  # Get the values of the selected item
+            selected_value = selected_values[0]
+            # Do something with the selected data
+            print("Selected row:", selected_values[0])
+
+        def view_table(table_name):
+            # Fetch data from the database
+            rows = Main.view_table(table_name)
+            # Clear existing data in the Treeview
+            for row in tree.get_children():
+                tree.delete(row)
+            # Insert fetched data into the Treeview
+            for row in rows:
+                tree.insert('', 'end', values=row)
+
+        def view_table2(table_name):
+            # Fetch data from the database
+            rows = Main.view_table(table_name)
+            # Clear existing data in the Treeview
+            for row in tree2.get_children():
+                tree2.delete(row)
+            # Insert fetched data into the Treeview
+            for row in rows:
+                tree2.insert('', 'end', values=row)
+
+        def back_page():
+            create_window1()
+            manage_inventory_window.destroy()
+
+        menu_items = tk.Label(manage_inventory_window, text="Menu")
+        menu_items.pack()
+        menu_items.place(x=650,y=100)
+        tree = ttk.Treeview(manage_inventory_window, show="headings")
+        tree["columns"] = ("Item", "Add On", "Price", "Employee ID")
+        tree.heading("Item", text="Item")
+        tree.heading("Add On", text="Add On")
+        tree.heading("Price", text="Price")
+        tree.heading("Employee ID", text="Employee ID")
+        tree.pack(fill="none", side="right", anchor='n')
+        tree.place(x=400,y=150)
+        tree.bind("<ButtonRelease-1>", on_select)
+        # View Menu
+        view_table("Menu")
+
+        addBtn = tk.Button(manage_inventory_window, text="Add New Item", command=back_page)
+        addBtn.place(x=300, y=400)
+        updateBtn = tk.Button(manage_inventory_window, text="Update Selected Item", command=back_page)
+        updateBtn.place(x=500, y=400)
+        deleteBtn = tk.Button(manage_inventory_window, text="Delete Selected Item", command=back_page)
+        deleteBtn.place(x=700, y=400)
+
+        inventory_items = tk.Label(manage_inventory_window, text="Inventory")
+        inventory_items.pack()
+        inventory_items.place(x=650,y=500)
+        tree2 = ttk.Treeview(manage_inventory_window, show="headings")
+        tree2["columns"] = ("Item", "Quantity")
+        tree2.heading("Item", text="Item")
+        tree2.heading("Quantity", text="Quantity")
+        tree2.pack(fill="none", side="right", anchor='n')
+        tree2.place(x=400,y=550)
+        tree2.bind("<ButtonRelease-1>", on_select)
+        # View Inventory Items
+        view_table2("Inventory")
+
+        addBtn2 = tk.Button(manage_inventory_window, text="Add New Item", command=back_page)
+        addBtn2.place(x=300, y=800)
+        plus_Btn = tk.Button(manage_inventory_window, text="Increase Quantity Selected Item", command=back_page)
+        plus_Btn.place(x=500, y=800)
+        minusBtn = tk.Button(manage_inventory_window, text="Decrease Quantity Selected Item", command=back_page)
+        minusBtn.place(x=700, y=800)
+
+        delete_button4 = tk.Button(manage_inventory_window, text="Back", command=back_page)
+        delete_button4.place(x=660, y=900)
+
+
+        manage_inventory_window.mainloop()
     def manage_employees():
         global employee_id
         manage_employees_window = tk.Tk()
@@ -166,23 +290,23 @@ def create_window1():
             tree = ttk.Treeview(manage_employees_window, show="headings")
             tree["columns"] = ("ID", "First Name", "Last Name", "Role", "Email", "Age",
                                "Phone Number", "Bank Account Number", "Available Item")  # Replace with your column names
-            tree.column("ID", width=100, anchor = CENTER)
+            tree.column("ID", width=110, anchor = CENTER)
             tree.heading("ID", text="ID")
-            tree.column("First Name", width=100, anchor = CENTER)
+            tree.column("First Name", width=110, anchor = CENTER)
             tree.heading("First Name", text="First Name")
-            tree.column("Last Name", width=100, anchor = CENTER)
+            tree.column("Last Name", width=110, anchor = CENTER)
             tree.heading("Last Name", text="Last Name")
-            tree.column("Role", width=100, anchor = CENTER)
+            tree.column("Role", width=110, anchor = CENTER)
             tree.heading("Role", text="Role")
-            tree.column("Email", width=100, anchor = CENTER)
+            tree.column("Email", width=110, anchor = CENTER)
             tree.heading("Email", text="Email")
-            tree.column("Age", width=100, anchor = CENTER)
+            tree.column("Age", width=110, anchor = CENTER)
             tree.heading("Age", text="Age")
-            tree.column("Phone Number", width=100, anchor = CENTER)
+            tree.column("Phone Number", width=110, anchor = CENTER)
             tree.heading("Phone Number", text="Phone Number")
-            tree.column("Bank Account Number", width=100, anchor = CENTER)
+            tree.column("Bank Account Number", width=110, anchor = CENTER)
             tree.heading("Bank Account Number", text="Bank Account Number")
-            tree.column("Available Item", width=100, anchor = CENTER)
+            tree.column("Available Item", width=110, anchor = CENTER)
             tree.heading("Available Item", text="Available Item")
             tree.pack(fill="none", expand=True,  anchor = CENTER)
             tree.place()
@@ -206,6 +330,8 @@ def create_window1():
         delete_button2.place(x=650,y=800)
         delete_button3 = tk.Button(manage_employees_window, text="Delete User", command=delete_user)
         delete_button3.place(x=750, y=800)
+        delete_button4 = tk.Button(manage_employees_window, text="Back", command=back_page)
+        delete_button4.place(x=660, y=900)
 
 
         manage_employees_window.mainloop()
@@ -1071,15 +1197,18 @@ def create_window1():
 
     customerBtn = tk.Button(window1, text="Customer", command=customer_check, bg="light blue")
     employeeBtn = tk.Button(window1, text="Employee", command=employee_check, bg="light blue")
-    manageBtn = tk.Button(window1, text="Manage Employees", command=manage_check, bg="light blue")
+    manageEmployeesBtn = tk.Button(window1, text="Manage Employees", command=manage_check, bg="light blue")
+    manageInventory = tk.Button(window1, text="Manage Inventory", command=manage_check2, bg="light blue")
     exitBtn = tk.Button(window1, text="Exit", command=exit, bg="light blue")
 
     employeeBtn.pack()
     employeeBtn.place(x=670, y=100)
     customerBtn.pack()
     customerBtn.place(x=670, y=200)
-    manageBtn.pack()
-    manageBtn.place(x=670, y=300)
+    manageEmployeesBtn.pack()
+    manageEmployeesBtn.place(x=670, y=300)
+    manageInventory.pack()
+    manageInventory.place(x=670, y=400)
     exitBtn.pack()
     exitBtn.place(x=670, y=750)
 
