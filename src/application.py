@@ -76,7 +76,7 @@ def create_window1():
 
     def manage_check():
         manage_check = tk.Tk()
-        manage_check.title("Enter Employee ID")
+        manage_check.title("Enter Employee ID of Manager:")
         manage_check.configure(bg="light blue")
         manage_check.geometry("450x360")
 
@@ -87,14 +87,14 @@ def create_window1():
                 manage_employees()
                 manage_check.destroy()
             else:
-                id_label = tk.Label(manage_check, text="That is not a valid ID")
+                id_label = tk.Label(manage_check, text="You must be a manager to access this")
                 id_label.grid(row=1, column=0, padx=10, pady=5)
 
         def back_page():
             create_window1()
             manage_check.destroy()
 
-        id_label = tk.Label(manage_check, text="Enter Your Employee ID:")
+        id_label = tk.Label(manage_check, text="Enter Employee ID of Manager:")
         id_label.grid(row=0, column=0, padx=10, pady=5)
         id_entry = tk.Entry(manage_check)
         id_entry.grid(row=0, column=1, padx=10, pady=5)
