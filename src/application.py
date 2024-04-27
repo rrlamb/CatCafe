@@ -108,7 +108,6 @@ def create_window1():
         manage_check.mainloop()
 
     def manage_employees():
-        global employee_id
         manage_employees_window = tk.Tk()
         manage_employees_window.configure(bg="light blue")
         manage_employees_window.geometry("1420x1200")
@@ -122,11 +121,10 @@ def create_window1():
 
 
         def delete_user():
-            global employee_id
 
-            if Main.check_employee(employee_id):
-                if Main.check_employee(employee_id):
-                    delete(Main.check_employee(employee_id))
+            if Main.check_employee(id):
+                if Main.check_employee(id):
+                    delete(Main.check_employee(id))
                     manage_employees_window.destroy()
                 else:
                     create_employee()
