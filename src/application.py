@@ -28,15 +28,22 @@ def create_window1():
         customer_check.configure(bg="light blue")
         customer_check.geometry("450x360")
 
+        def back_page():
+            customer_check.destroy()
+            create_window1()
+
         def check_and_continue():
             global email
             email = email_entry.get()
+            print(email)
             if Main.check_customer(email):
+                print(email)
+                customer_check.destroy()
                 customer()
-                customer_check.destroy()
             else:
-                create_customer()
                 customer_check.destroy()
+                create_customer()
+
 
         email_label = tk.Label(customer_check, text="Enter Your Email:")
         email_label.grid(row=0, column=0, padx=10, pady=5)
@@ -45,6 +52,8 @@ def create_window1():
 
         check_button = tk.Button(customer_check, text="Submit", command=check_and_continue)
         check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
+        back_button = tk.Button(customer_check, text="Back", command=back_page)
+        back_button.grid(row=2, column=0, columnspan=2, padx=10, pady=5)
 
         customer_check.mainloop()
 
@@ -58,11 +67,13 @@ def create_window1():
             global id
             id = id_entry.get()
             if Main.check_employee(id):
+                update_employee.destroy()
                 update(Main.check_employee(id))
-                update_employee.destroy()
+
             else:
-                create_employee()
                 update_employee.destroy()
+                create_employee()
+
 
         id_label = tk.Label(update_employee, text="Enter Employee ID to Update Information For:")
         id_label.grid(row=0, column=0, padx=10, pady=5)
@@ -85,15 +96,15 @@ def create_window1():
             global id
             id = id_entry.get()
             if Main.check_manager(id):
-                manage_employees()
                 manage_check.destroy()
+                manage_employees()
+
             else:
                 id_label = tk.Label(manage_check, text="You must be a manager to access this")
                 id_label.grid(row=1, column=0, padx=10, pady=5)
 
-        def back_page():
-            create_window1()
-            manage_check.destroy()
+
+
 
         id_label = tk.Label(manage_check, text="Enter Employee ID of Manager:")
         id_label.grid(row=0, column=0, padx=10, pady=5)
@@ -118,15 +129,17 @@ def create_window1():
             global id
             id = id_entry.get()
             if Main.check_manager(id):
-                manage_inventory()
                 manage_check2.destroy()
+                manage_inventory()
+
             else:
                 id_label = tk.Label(manage_check2, text="You must be a manager to access this")
                 id_label.grid(row=1, column=0, padx=10, pady=5)
 
         def back_page():
-            create_window1()
             manage_check2.destroy()
+            create_window1()
+
 
         id_label = tk.Label(manage_check2, text="Enter Employee ID of Manager:")
         id_label.grid(row=0, column=0, padx=10, pady=5)
@@ -140,6 +153,153 @@ def create_window1():
         back_button.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
 
         manage_check2.mainloop()
+
+    def create_menu_item():
+        create_menu_item_window = tk.Tk()
+        create_menu_item_window.configure(bg="light blue")
+        create_menu_item_window.geometry("680x360")
+
+        create_menu_item_window.title("Create Menu Item")
+
+        def back_page():
+            create_menu_item_window.destroy()
+            create_window1()
+
+
+        def create_menu():
+            first_name = first_name_entry.get()
+            last_name = last_name_entry.get()
+            role = role_entry.get()
+            email = email_entry.get()
+            age = age_entry.get()
+            phone_number = phone_number_entry.get()
+            bank_account_number = bank_account_number_entry.get()
+            available_item = available_item_entry.get()
+            create_menu_item_window.destroy()
+            create_window1()
+
+
+        first_name_label = tk.Label(create_menu_item_window, text="First Name:")
+        first_name_label.grid(row=0, column=0, padx=10, pady=5)
+        first_name_entry = tk.Entry(create_menu_item_window)
+        first_name_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        last_name_label = tk.Label(create_menu_item_window, text="Last Name:")
+        last_name_label.grid(row=1, column=0, padx=10, pady=5)
+        last_name_entry = tk.Entry(create_menu_item_window)
+        last_name_entry.grid(row=1, column=1, padx=10, pady=5)
+
+        role_label = tk.Label(create_menu_item_window, text="Role:")
+        role_label.grid(row=2, column=0, padx=10, pady=5)
+        role_entry = tk.Entry(create_menu_item_window)
+        role_entry.grid(row=2, column=1, padx=10, pady=5)
+
+        email_label = tk.Label(create_menu_item_window, text="Email:")
+        email_label.grid(row=3, column=0, padx=10, pady=5)
+        email_entry = tk.Entry(create_menu_item_window)
+        email_entry.grid(row=3, column=1, padx=10, pady=5)
+
+        age_label = tk.Label(create_menu_item_window, text="Age:")
+        age_label.grid(row=4, column=0, padx=10, pady=5)
+        age_entry = tk.Entry(create_menu_item_window)
+        age_entry.grid(row=4, column=1, padx=10, pady=5)
+
+        phone_number_label = tk.Label(create_menu_item_window, text="Phone Number:")
+        phone_number_label.grid(row=5, column=0, padx=10, pady=5)
+        phone_number_entry = tk.Entry(create_menu_item_window)
+        phone_number_entry.grid(row=5, column=1, padx=10, pady=5)
+
+        bank_account_number_label = tk.Label(create_menu_item_window, text="Bank Account Number:")
+        bank_account_number_label.grid(row=6, column=0, padx=10, pady=5)
+        bank_account_number_entry = tk.Entry(create_menu_item_window)
+        bank_account_number_entry.grid(row=6, column=1, padx=10, pady=5)
+
+        available_item_label = tk.Label(create_menu_item_window, text="Available Item:")
+        available_item_label.grid(row=7, column=0, padx=10, pady=5)
+        available_item_entry = tk.Entry(create_menu_item_window)
+        available_item_entry.grid(row=7, column=1, padx=10, pady=5)
+
+        create_button = tk.Button(create_menu_item_window, text="Create Employee", command=create_menu)
+        create_button.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
+
+        back_button = tk.Button(create_menu_item_window, text="Back", command=back_page)
+        back_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
+
+        create_menu_item_window.mainloop()
+
+    def create_inventory_item():
+        create_inventory_item_window = tk.Tk()
+        create_inventory_item_window.configure(bg="light blue")
+        create_inventory_item_window.geometry("680x360")
+
+        create_inventory_item_window.title("Create New Inventory Item")
+
+        def back_page():
+            create_inventory_item_window.destroy()
+            create_window1()
+
+
+        def create_item():
+            first_name = first_name_entry.get()
+            last_name = last_name_entry.get()
+            role = role_entry.get()
+            email = email_entry.get()
+            age = age_entry.get()
+            phone_number = phone_number_entry.get()
+            bank_account_number = bank_account_number_entry.get()
+            available_item = available_item_entry.get()
+            create_inventory_item_window.destroy()
+            create_window1()
+
+
+        first_name_label = tk.Label(create_inventory_item_window, text="First Name:")
+        first_name_label.grid(row=0, column=0, padx=10, pady=5)
+        first_name_entry = tk.Entry(create_inventory_item_window)
+        first_name_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        last_name_label = tk.Label(create_inventory_item_window, text="Last Name:")
+        last_name_label.grid(row=1, column=0, padx=10, pady=5)
+        last_name_entry = tk.Entry(create_inventory_item_window)
+        last_name_entry.grid(row=1, column=1, padx=10, pady=5)
+
+        role_label = tk.Label(create_inventory_item_window, text="Role:")
+        role_label.grid(row=2, column=0, padx=10, pady=5)
+        role_entry = tk.Entry(create_inventory_item_window)
+        role_entry.grid(row=2, column=1, padx=10, pady=5)
+
+        email_label = tk.Label(create_inventory_item_window, text="Email:")
+        email_label.grid(row=3, column=0, padx=10, pady=5)
+        email_entry = tk.Entry(create_inventory_item_window)
+        email_entry.grid(row=3, column=1, padx=10, pady=5)
+
+        age_label = tk.Label(create_inventory_item_window, text="Age:")
+        age_label.grid(row=4, column=0, padx=10, pady=5)
+        age_entry = tk.Entry(create_inventory_item_window)
+        age_entry.grid(row=4, column=1, padx=10, pady=5)
+
+        phone_number_label = tk.Label(create_inventory_item_window, text="Phone Number:")
+        phone_number_label.grid(row=5, column=0, padx=10, pady=5)
+        phone_number_entry = tk.Entry(create_inventory_item_window)
+        phone_number_entry.grid(row=5, column=1, padx=10, pady=5)
+
+        bank_account_number_label = tk.Label(create_inventory_item_window, text="Bank Account Number:")
+        bank_account_number_label.grid(row=6, column=0, padx=10, pady=5)
+        bank_account_number_entry = tk.Entry(create_inventory_item_window)
+        bank_account_number_entry.grid(row=6, column=1, padx=10, pady=5)
+
+        available_item_label = tk.Label(create_inventory_item_window, text="Available Item:")
+        available_item_label.grid(row=7, column=0, padx=10, pady=5)
+        available_item_entry = tk.Entry(create_inventory_item_window)
+        available_item_entry.grid(row=7, column=1, padx=10, pady=5)
+
+        create_button = tk.Button(create_inventory_item_window, text="Create Employee", command=create_item)
+        create_button.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
+
+        back_button = tk.Button(create_inventory_item_window, text="Back", command=back_page)
+        back_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
+
+        create_inventory_item_window.mainloop()
+
     def manage_inventory():
         global employee_id
         manage_inventory_window = tk.Tk()
@@ -180,9 +340,27 @@ def create_window1():
             for row in rows:
                 tree2.insert('', 'end', values=row)
 
-        def back_page():
-            create_window1()
+        def create1():
             manage_inventory_window.destroy()
+            create_menu_item()
+
+        def create2():
+            manage_inventory_window.destroy()
+            create_inventory_item()
+
+
+        def back_page():
+            manage_inventory_window.destroy()
+            create_window1()
+
+
+
+
+        def on_select(event):
+            global selected_value
+            selected_item = tree.selection()[0]  # Get the selected item
+            selected_values = tree.item(selected_item, 'values')  # Get the values of the selected item
+            selected_value = selected_values[0]
 
         menu_items = tk.Label(manage_inventory_window, text="Menu")
         menu_items.pack()
@@ -199,7 +377,7 @@ def create_window1():
         # View Menu
         view_table("Menu")
 
-        addBtn = tk.Button(manage_inventory_window, text="Add New Item", command=back_page)
+        addBtn = tk.Button(manage_inventory_window, text="Add New Item", command=create1)
         addBtn.place(x=300, y=400)
         updateBtn = tk.Button(manage_inventory_window, text="Update Selected Item", command=back_page)
         updateBtn.place(x=500, y=400)
@@ -219,7 +397,7 @@ def create_window1():
         # View Inventory Items
         view_table2("Inventory")
 
-        addBtn2 = tk.Button(manage_inventory_window, text="Add New Item", command=back_page)
+        addBtn2 = tk.Button(manage_inventory_window, text="Add New Item", command=create2)
         addBtn2.place(x=300, y=800)
         plus_Btn = tk.Button(manage_inventory_window, text="Increase Quantity Selected Item", command=back_page)
         plus_Btn.place(x=500, y=800)
@@ -249,26 +427,32 @@ def create_window1():
 
             if Main.check_employee(employee_id):
                 if Main.check_employee(employee_id):
+                    manage_employees_window.destroy()
                     delete(Main.check_employee(employee_id))
-                    manage_employees_window.destroy()
+                    
                 else:
-                    create_employee()
                     manage_employees_window.destroy()
+                    create_employee()
+                    
 
         def back_page():
-            create_window1()
             manage_employees_window.destroy()
+            create_window1()
+            
 
         def check_id():
             global employee_id
             print (employee_id)
             if Main.check_employee(employee_id):
+                manage_employees_window.destroy()
                 update(Main.check_employee(employee_id))
-                manage_employees_window.destroy()
+                
             else:
-                create_employee()
                 manage_employees_window.destroy()
+                create_employee()
+                
         def create():
+            manage_employees_window.destroy()
             employee_check2()
 
 
@@ -344,11 +528,13 @@ def create_window1():
             global id
             id = id_entry.get()
             if Main.check_employee(id):
+                delete_employee.destroy()
                 delete(Main.check_employee(id))
-                delete_employee.destroy()
+                
             else:
-                create_employee()
                 delete_employee.destroy()
+                create_employee()
+                
 
         id_label = tk.Label(delete_employee, text="Enter Employee ID to Delete:")
         id_label.grid(row=0, column=0, padx=10, pady=5)
@@ -373,8 +559,9 @@ def create_window1():
                 warning.grid(row=2, column=0, padx=10, pady=5)
                 employee_check2()
             else:
-                create_employee(id)
                 employee_check2.destroy()
+                create_employee(id)
+                
 
         id_label = tk.Label(employee_check2, text="Enter New Employee ID:")
         id_label.grid(row=0, column=0, padx=10, pady=5)
@@ -393,6 +580,11 @@ def create_window1():
 
         create_employee_window.title("Create Employee")
 
+        def back_page():
+            create_employee_window.destroy()
+            create_window1()
+            
+
         def create_employee():
             id = new_id
             first_name = first_name_entry.get()
@@ -406,8 +598,9 @@ def create_window1():
             # Call a method in main to create the employee
             Main.create_employee(id, first_name, last_name, role, email, age, phone_number, bank_account_number,
                                  available_item)
-            create_window1()
             create_employee_window.destroy()
+            create_window1()
+            
 
 
         first_name_label = tk.Label(create_employee_window, text="First Name:")
@@ -453,6 +646,9 @@ def create_window1():
         create_button = tk.Button(create_employee_window, text="Create Employee", command=create_employee)
         create_button.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
 
+        back_button = tk.Button(create_employee_window, text="Back", command=back_page)
+        back_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
+
         create_employee_window.mainloop()
 
     def delete(id):
@@ -469,13 +665,14 @@ def create_window1():
 
             # Call a method in main to create the user
             Main.delete(id[0])
-
-            create_window1()
             delete_window.destroy()
+            create_window1()
+            
 
         def back_page():
-            create_window1()
             delete_window.destroy()
+            create_window1()
+            
 
 
 
@@ -531,15 +728,17 @@ def create_window1():
             global id
             id = id_entry.get()
             if Main.check_employee(id):
-                employee()
                 employee_check.destroy()
+                employee()
+                
             else:
                 id_label = tk.Label(employee_check, text="That is not a valid ID")
                 id_label.grid(row=1, column=0, padx=10, pady=5)
 
         def back_page():
-            create_window1()
             employee_check.destroy()
+            create_window1()
+            
 
         id_label = tk.Label(employee_check, text="Enter Your Employee ID:")
         id_label.grid(row=0, column=0, padx=10, pady=5)
@@ -635,8 +834,9 @@ def create_window1():
 
             # Call a method in main to update the employee
             Main.update_employee(id, update_listColumns, update_listValues)
-            create_window1()
             update_window.destroy()
+            create_window1()
+            
 
         first_name_label = tk.Label(update_window, text="Updating information for: " + str(id[0]))
         first_name_label.grid(row=0, column=0, padx=10, pady=5)
@@ -703,9 +903,9 @@ def create_window1():
 
             # Call a method in main to create the user
             Main.create_customer(email, first_name, last_name)
-
-            customer()
             create_customer_window.destroy()
+            customer()
+            
 
         email_label = tk.Label(create_customer_window, text="Email:")
         email_label.grid(row=0, column=0, padx=10, pady=5)
@@ -743,8 +943,9 @@ def create_window1():
             create_window1()
 
         def update2():
-            update(id)
             employee.destroy()
+            update(id)
+
 
         backBtn = tk.Button(employee, text="Back", command=back, bg="light blue")
         backBtn.pack()
@@ -1009,10 +1210,8 @@ def create_window1():
         tree3.pack(fill="none", expand=True)
         tree3.place(x=900,y=675)
 
-        print(str(id))
         # Fetch data from the database
         rows = Main.view_employee(id)
-        print(str(rows))
         # Clear existing data in the Treeview
         for row in tree3.get_children():
             tree3.delete(row)
@@ -1148,7 +1347,6 @@ def create_window1():
             for row in rows:
                 tree.insert('', 'end', values=row)
 
-        window1.destroy()
         # Customer Window
         customer = tk.Tk()
         customer.configure(bg="light blue")
@@ -1195,10 +1393,28 @@ def create_window1():
     def exit():
         window1.destroy()
 
-    customerBtn = tk.Button(window1, text="Customer", command=customer_check, bg="light blue")
-    employeeBtn = tk.Button(window1, text="Employee", command=employee_check, bg="light blue")
-    manageEmployeesBtn = tk.Button(window1, text="Manage Employees", command=manage_check, bg="light blue")
-    manageInventory = tk.Button(window1, text="Manage Inventory", command=manage_check2, bg="light blue")
+    def cust():
+        window1.destroy()
+        customer_check()
+
+    def employ():
+        window1.destroy()
+        employee_check()
+
+    def manage1():
+        window1.destroy()
+        manage_check()
+
+    def manage2():
+        window1.destroy()
+        manage_check2()
+
+
+
+    customerBtn = tk.Button(window1, text="Customer", command=cust, bg="light blue")
+    employeeBtn = tk.Button(window1, text="Employee", command=employ, bg="light blue")
+    manageEmployeesBtn = tk.Button(window1, text="Manage Employees", command=manage1, bg="light blue")
+    manageInventory = tk.Button(window1, text="Manage Inventory", command=manage2, bg="light blue")
     exitBtn = tk.Button(window1, text="Exit", command=exit, bg="light blue")
 
     employeeBtn.pack()
