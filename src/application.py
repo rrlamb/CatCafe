@@ -137,10 +137,8 @@ def create_window1():
             manage_employees_window.destroy()
 
         def check_id():
-            global employee_id
-            print (employee_id)
-            if Main.check_employee(employee_id):
-                update(Main.check_employee(employee_id))
+            if Main.check_employee(id):
+                update(Main.check_employee(id))
                 manage_employees_window.destroy()
             else:
                 create_employee()
