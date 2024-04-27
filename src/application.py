@@ -5,7 +5,7 @@ import Main
 
 email = ""
 selected_value = ""
-employee_id = 0
+employee_id = 32672
 
 
 def create_window1():
@@ -305,7 +305,6 @@ def create_window1():
         employee_check = tk.Tk()
         employee_check.title("Enter Employee ID")
         employee_check.configure(bg="light blue")
-        employee_check.geometry("450x360")
 
         def check():
             global id
@@ -337,9 +336,44 @@ def create_window1():
     def update(id):
         update_window = tk.Tk()
         update_window.configure(bg="light blue")
-        update_window.geometry("680x360")
 
         update_window.title("Update Employee Information: Only enter information for what you want to update")
+
+        employee_label = tk.Label(update_window, text="Current Employee Info", font=subheading_font, bg="light blue")
+        employee_label.pack()
+        employee_label.place(x=600, y=0)
+        tree3 = ttk.Treeview(update_window, show="headings")
+        tree3["columns"] = ("ID", "First Name", "Last Name", "Role", "Email", "Age",
+                            "Phone Number", "Bank Account Number", "Available Item")  # Replace with your column names
+        tree3.column("ID", width=55)
+        tree3.heading("ID", text="ID")
+        tree3.column("First Name", width=55)
+        tree3.heading("First Name", text="First")
+        tree3.column("Last Name", width=55)
+        tree3.heading("Last Name", text="Last")
+        tree3.column("Role", width=55)
+        tree3.heading("Role", text="Role")
+        tree3.column("Email", width=55)
+        tree3.heading("Email", text="Email")
+        tree3.column("Age", width=55)
+        tree3.heading("Age", text="Age")
+        tree3.column("Phone Number", width=55)
+        tree3.heading("Phone Number", text="Phone #")
+        tree3.column("Bank Account Number", width=55)
+        tree3.heading("Bank Account Number", text="Bank #")
+        tree3.column("Available Item", width=55)
+        tree3.heading("Available Item", text="Item")
+        tree3.pack(fill="none", expand=True)
+        tree3.place(x=500, y=50)
+        # Fetch data from the database
+        rows = Main.view_employee(id)
+        print(str(rows))
+        # Clear existing data in the Treeview
+        for row in tree3.get_children():
+            tree3.delete(row)
+        # Insert fetched data into the Treeview
+        for row in rows:
+            tree3.insert('', 'end', values=row)
 
         def update_employee():
             update_listColumns=[]
@@ -383,7 +417,7 @@ def create_window1():
             create_window1()
             update_window.destroy()
 
-        first_name_label = tk.Label(update_window, text="Updating information for:" + str(id[0]))
+        first_name_label = tk.Label(update_window, text="Updating information for: " + str(id[0]))
         first_name_label.grid(row=0, column=0, padx=10, pady=5)
 
         first_name_label = tk.Label(update_window, text="First Name:")
