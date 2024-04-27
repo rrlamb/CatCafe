@@ -559,9 +559,17 @@ def create_window1():
             employee.destroy()
             create_window1()
 
+        def update2():
+            update(id)
+            employee.destroy()
+
         backBtn = tk.Button(employee, text="Back", command=back, bg="light blue")
         backBtn.pack()
-        backBtn.place(x=680, y=825)
+        backBtn.place(x=750, y=1000)
+
+        updateBtn = tk.Button(employee, text="Update", command=update2, bg="light blue")
+        updateBtn.pack()
+        updateBtn.place(x=1125, y=925)
 
         #Turkey Club Menu Item
         turkeyclub_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
@@ -747,10 +755,10 @@ def create_window1():
 
         email_label = tk.Label(employee, text="Customer Email (if applicable): ", font=subheading_font, bg="light blue")
         email_label.pack()
-        email_label.place(x=370, y=700)
+        email_label.place(x=0, y=700)
         customer_email = tk.Text(employee, width=50, height=1.5)
         customer_email.pack()
-        customer_email.place(x=660, y=700)
+        customer_email.place(x=300, y=700)
 
         def on_select(event):
             global selected_value
@@ -764,8 +772,8 @@ def create_window1():
         tree["columns"] = ("Item", "Quantity")
         tree.heading("Item", text="Item")
         tree.heading("Quantity", text="Quantity")
-        tree.pack(fill="none", side="right", padx=60, pady=100, anchor='n')
-
+        tree.pack(fill="none", side="right", anchor='n')
+        tree.place(x=957, y=100)
         tree.bind("<ButtonRelease-1>", on_select)
 
         def view_table(table_name):
@@ -779,9 +787,9 @@ def create_window1():
                 tree.insert('', 'end', values=row)
 
         # View Inventory Items
-        inventory_items = tk.Label(employee, text="INVENTORY:", font=subheading_font, bg="light blue")
+        inventory_items = tk.Label(employee, text="Inventory", font=subheading_font, bg="light blue")
         inventory_items.pack()
-        inventory_items.place(x=1100, y=100)
+        inventory_items.place(x=1100, y=50)
         view_table("Inventory")
 
         tree2 = ttk.Treeview(employee, show="headings")
@@ -789,7 +797,45 @@ def create_window1():
         tree2.heading("Customer Name", text="Customer Name")
         tree2.heading("Cat Name", text="Cat Name")
         tree2.pack(fill="none", side="right", anchor='n')
-        tree2.place(x=957, y=440)
+        tree2.place(x=957, y=390)
+
+        employee_label = tk.Label(employee, text="Employee Info", font=subheading_font, bg="light blue")
+        employee_label.pack()
+        employee_label.place(x=1100, y=625)
+        tree3 = ttk.Treeview(employee, show="headings")
+        tree3["columns"] = ("ID", "First Name", "Last Name", "Role", "Email", "Age",
+                           "Phone Number", "Bank Account Number", "Available Item")  # Replace with your column names
+        tree3.column("ID", width=55)
+        tree3.heading("ID", text="ID")
+        tree3.column("First Name", width=55)
+        tree3.heading("First Name", text="First")
+        tree3.column("Last Name", width=55)
+        tree3.heading("Last Name", text="Last")
+        tree3.column("Role", width=55)
+        tree3.heading("Role", text="Role")
+        tree3.column("Email", width=55)
+        tree3.heading("Email", text="Email")
+        tree3.column("Age", width=55)
+        tree3.heading("Age", text="Age")
+        tree3.column("Phone Number", width=55)
+        tree3.heading("Phone Number", text="Phone #")
+        tree3.column("Bank Account Number", width=55)
+        tree3.heading("Bank Account Number", text="Bank #")
+        tree3.column("Available Item", width=55)
+        tree3.heading("Available Item", text="Item")
+        tree3.pack(fill="none", expand=True)
+        tree3.place(x=900,y=675)
+
+        print(str(id))
+        # Fetch data from the database
+        rows = Main.view_employee(id)
+        print(str(rows))
+        # Clear existing data in the Treeview
+        for row in tree3.get_children():
+            tree3.delete(row)
+        # Insert fetched data into the Treeview
+        for row in rows:
+            tree3.insert('', 'end', values=row)
 
         def view_join_table():
             # Fetch data from the database
@@ -804,7 +850,7 @@ def create_window1():
         # View Inventory Items
         customercat = tk.Label(employee, text="Customer and Cat:", font=subheading_font, bg="light blue")
         customercat.pack()
-        customercat.place(x=1100, y=400)
+        customercat.place(x=1075, y=340)
         view_join_table()
 
         def complete_order():
@@ -861,29 +907,29 @@ def create_window1():
                 low_items = tk.Label(employee, text="LOW INVENTORY ITEMS: ", font=subheading_font, foreground='red',
                                      bg="light blue")
                 low_items.pack()
-                low_items.place(x=0, y=800)
+                low_items.place(x=100, y=900)
                 result = Main.inventory_low()
                 my_string = ' , '.join([str(x) for x in result])
                 low_items_list = tk.Label(employee, text=my_string, font=subheading_font, foreground='red',
                                           bg="light blue")
                 low_items_list.pack()
-                low_items_list.place(x=250, y=800)
+                low_items_list.place(x=350, y=900)
 
             final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font,
                                         bg="light blue")
             final_cost_label.pack()
-            final_cost_label.place(x=800, y=800)
+            final_cost_label.place(x=200, y=775)
             earned_points_label = tk.Label(employee,
                                            text="Total Points Earned from Order: " + str(total_points) + " points",
                                            font=subheading_font, bg="light blue")
             earned_points_label.pack()
-            earned_points_label.place(x=800, y=850)
+            earned_points_label.place(x=200, y=825)
 
             view_table("Inventory")
 
         complete_order_btn = tk.Button(employee, text="Complete Order!", command=complete_order, bg="light blue")
         complete_order_btn.pack()
-        complete_order_btn.place(x=650, y=775)
+        complete_order_btn.place(x=750, y=705)
 
         employee.mainloop()
 
