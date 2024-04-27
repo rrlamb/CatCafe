@@ -252,6 +252,8 @@ def create_customer(customer_email, first_name, last_name):
 
         customer_insert = "INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES (%s, %s, %s, %s)"
         customer_values = (customer_email, first_name, last_name, "none")
+        print(customer_insert)
+        print(customer_values)
         cursor.execute(customer_insert, customer_values)
 
         print("created customer")
@@ -282,6 +284,8 @@ def create_employee(id, first_name, last_name, role, email, age, phone_number, b
         employee_values = (id, first_name, last_name, role, email, age, phone_number, bank_account_number, available_item)
         cursor.execute(employee_insert, employee_values)
 
+        print(employee_insert)
+        print(employee_values)
         print("created employee")
         cafe.commit()
 
