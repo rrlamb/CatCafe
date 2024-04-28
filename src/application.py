@@ -58,32 +58,7 @@ def create_window1():
         customer_check.mainloop()
 
 
-    def update_employee():
-        update_employee = tk.Tk()
-        update_employee.configure(bg="light blue")
-        update_employee.geometry("1420x1200")
 
-        def check_id():
-            global id
-            id = id_entry.get()
-            if Main.check_employee(id):
-                update_employee.destroy()
-                update(Main.check_employee(id))
-
-            else:
-                update_employee.destroy()
-                create_employee()
-
-
-        id_label = tk.Label(update_employee, text="Enter Employee ID to Update Information For:")
-        id_label.grid(row=0, column=0, padx=10, pady=5)
-        id_entry = tk.Entry(update_employee)
-        id_entry.grid(row=0, column=1, padx=10, pady=5)
-
-        check_button = tk.Button(update_employee, text="Submit", command=check_id)
-        check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
-
-        update_employee.mainloop()
 
 
     def manage_check():
@@ -103,6 +78,10 @@ def create_window1():
                 id_label = tk.Label(manage_check, text="You must be a manager to access this")
                 id_label.grid(row=1, column=0, padx=10, pady=5)
 
+        def back():
+            manage_check.destroy()
+            create_window1()
+
 
 
 
@@ -114,7 +93,7 @@ def create_window1():
         check_button = tk.Button(manage_check, text="Submit", command=check)
         check_button.grid(row=2, column=0, columnspan=2, padx=10, pady=5)
 
-        back_button = tk.Button(manage_check, text="Back", command=back_page)
+        back_button = tk.Button(manage_check, text="Back", command=back)
         back_button.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
 
         manage_check.mainloop()
@@ -519,44 +498,24 @@ def create_window1():
 
 
         manage_employees_window.mainloop()
-    def delete_employee():
-        delete_employee = tk.Tk()
-        delete_employee.configure(bg="light blue")
-        delete_employee.geometry("1420x1200")
 
-        def check_id_delete():
-            global id
-            id = id_entry.get()
-            if Main.check_employee(id):
-                delete_employee.destroy()
-                delete(Main.check_employee(id))
-                
-            else:
-                delete_employee.destroy()
-                create_employee()
-                
-
-        id_label = tk.Label(delete_employee, text="Enter Employee ID to Delete:")
-        id_label.grid(row=0, column=0, padx=10, pady=5)
-        id_entry = tk.Entry(delete_employee)
-        id_entry.grid(row=0, column=1, padx=10, pady=5)
-
-        check_button = tk.Button(delete_employee, text="Submit", command=check_id_delete)
-        check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
-
-        delete_employee.mainloop()
 
     def employee_check2():
         employee_check2 = tk.Tk()
         employee_check2.configure(bg="light blue")
         employee_check2.geometry("1420x1200")
+        employee_check2.title("Employee Check")
+
+        def back_page():
+            employee_check2.destroy()
+            create_window1()
 
         def check():
             global id
             id = id_entry.get()
             if Main.check_employee(id):
                 warning = tk.Label(employee_check2, text="ID already exists")
-                warning.grid(row=2, column=0, padx=10, pady=5)
+                warning.grid(row=1, column=0, padx=10, pady=5)
                 employee_check2()
             else:
                 employee_check2.destroy()
@@ -569,7 +528,10 @@ def create_window1():
         id_entry.grid(row=0, column=1, padx=10, pady=5)
 
         check_button = tk.Button(employee_check2, text="Submit", command=check)
-        check_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
+        check_button.grid(row=2, column=0, columnspan=2, padx=10, pady=5)
+
+        back_button = tk.Button(employee_check2, text="Back", command=back_page)
+        back_button.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
 
         employee_check2.mainloop()
 
@@ -905,6 +867,10 @@ def create_window1():
             Main.create_customer(email, first_name, last_name)
             create_customer_window.destroy()
             customer()
+
+        def back():
+            create_customer_window.destroy()
+            create_window1()
             
 
         email_label = tk.Label(create_customer_window, text="Email:")
@@ -924,11 +890,12 @@ def create_window1():
 
         create_button = tk.Button(create_customer_window, text="Create Customer", command=create_user)
         create_button.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
+        back_button = tk.Button(create_customer_window, text="Back", command=back)
+        back_button.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
 
         create_customer_window.mainloop()
 
     def employee():
-        window1.destroy()
         # Employee Window
         employee = tk.Tk()
         employee.configure(bg="light blue")
