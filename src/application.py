@@ -6,6 +6,7 @@ import Main
 email = ""
 selected_value = ""
 employee_id = 32672
+item = "x"
 
 
 def create_window1():
@@ -219,59 +220,27 @@ def create_window1():
 
 
         def create_item():
-            first_name = first_name_entry.get()
-            last_name = last_name_entry.get()
-            role = role_entry.get()
-            email = email_entry.get()
-            age = age_entry.get()
-            phone_number = phone_number_entry.get()
-            bank_account_number = bank_account_number_entry.get()
-            available_item = available_item_entry.get()
+            inventory_item = inventory_item_entry.get()
+            quantity = quantity_entry.get()
+            Main.create_inventory(inventory_item, quantity)
             create_inventory_item_window.destroy()
-            create_window1()
+            manage_inventory()
 
 
-        first_name_label = tk.Label(create_inventory_item_window, text="First Name:")
-        first_name_label.grid(row=0, column=0, padx=10, pady=5)
-        first_name_entry = tk.Entry(create_inventory_item_window)
-        first_name_entry.grid(row=0, column=1, padx=10, pady=5)
+        inventory_item_label = tk.Label(create_inventory_item_window, text="Inventory Item:")
+        inventory_item_label.grid(row=0, column=0, padx=10, pady=5)
+        inventory_item_entry = tk.Entry(create_inventory_item_window)
+        inventory_item_entry.grid(row=0, column=1, padx=10, pady=5)
 
-        last_name_label = tk.Label(create_inventory_item_window, text="Last Name:")
-        last_name_label.grid(row=1, column=0, padx=10, pady=5)
-        last_name_entry = tk.Entry(create_inventory_item_window)
-        last_name_entry.grid(row=1, column=1, padx=10, pady=5)
+        quantity_label = tk.Label(create_inventory_item_window, text="Quantity:")
+        quantity_label.grid(row=1, column=0, padx=10, pady=5)
+        quantity_entry = tk.Entry(create_inventory_item_window)
+        quantity_entry.grid(row=1, column=1, padx=10, pady=5)
 
-        role_label = tk.Label(create_inventory_item_window, text="Role:")
-        role_label.grid(row=2, column=0, padx=10, pady=5)
-        role_entry = tk.Entry(create_inventory_item_window)
-        role_entry.grid(row=2, column=1, padx=10, pady=5)
 
-        email_label = tk.Label(create_inventory_item_window, text="Email:")
-        email_label.grid(row=3, column=0, padx=10, pady=5)
-        email_entry = tk.Entry(create_inventory_item_window)
-        email_entry.grid(row=3, column=1, padx=10, pady=5)
 
-        age_label = tk.Label(create_inventory_item_window, text="Age:")
-        age_label.grid(row=4, column=0, padx=10, pady=5)
-        age_entry = tk.Entry(create_inventory_item_window)
-        age_entry.grid(row=4, column=1, padx=10, pady=5)
 
-        phone_number_label = tk.Label(create_inventory_item_window, text="Phone Number:")
-        phone_number_label.grid(row=5, column=0, padx=10, pady=5)
-        phone_number_entry = tk.Entry(create_inventory_item_window)
-        phone_number_entry.grid(row=5, column=1, padx=10, pady=5)
-
-        bank_account_number_label = tk.Label(create_inventory_item_window, text="Bank Account Number:")
-        bank_account_number_label.grid(row=6, column=0, padx=10, pady=5)
-        bank_account_number_entry = tk.Entry(create_inventory_item_window)
-        bank_account_number_entry.grid(row=6, column=1, padx=10, pady=5)
-
-        available_item_label = tk.Label(create_inventory_item_window, text="Available Item:")
-        available_item_label.grid(row=7, column=0, padx=10, pady=5)
-        available_item_entry = tk.Entry(create_inventory_item_window)
-        available_item_entry.grid(row=7, column=1, padx=10, pady=5)
-
-        create_button = tk.Button(create_inventory_item_window, text="Create Employee", command=create_item)
+        create_button = tk.Button(create_inventory_item_window, text="Create Inventory Item", command=create_item)
         create_button.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
 
         back_button = tk.Button(create_inventory_item_window, text="Back", command=back_page)
@@ -280,7 +249,7 @@ def create_window1():
         create_inventory_item_window.mainloop()
 
     def manage_inventory():
-        global employee_id
+        global item
         manage_inventory_window = tk.Tk()
         manage_inventory_window.configure(bg="light blue")
         manage_inventory_window.geometry("1420x1200")
@@ -288,16 +257,11 @@ def create_window1():
         manage_inventory_window.title("Inventory")
         warning = tk.Label(manage_inventory_window, text="Highlight items to select them")
         warning.place(x=650, y=0)
+        item = "x"
 
 
 
-        def on_select(event):
-            global selected_value
-            selected_item = tree.selection()[0]  # Get the selected item
-            selected_values = tree.item(selected_item, 'values')  # Get the values of the selected item
-            selected_value = selected_values[0]
-            # Do something with the selected data
-            print("Selected row:", selected_values[0])
+
 
         def view_table(table_name):
             # Fetch data from the database
@@ -327,6 +291,10 @@ def create_window1():
             manage_inventory_window.destroy()
             create_inventory_item()
 
+        def delete2():
+            manage_inventory_window.destroy()
+            delete_inventory_item(item)
+
 
         def back_page():
             manage_inventory_window.destroy()
@@ -335,11 +303,37 @@ def create_window1():
 
 
 
-        def on_select(event):
+
+
+
+
+        def increase():
+            manage_inventory_window.destroy()
+            Main.change_quantity(item, 1)
+            manage_inventory()
+
+        def decrease():
+            manage_inventory_window.destroy()
+            Main.change_quantity(item, -1)
+            manage_inventory()
+
+        def on_select1(event):
             global selected_value
+            global item
             selected_item = tree.selection()[0]  # Get the selected item
             selected_values = tree.item(selected_item, 'values')  # Get the values of the selected item
             selected_value = selected_values[0]
+            item = str(selected_value)
+
+        def on_select2(event):
+            global selected_value
+            global item
+            selected_item = tree2.selection()[0]  # Get the selected item
+            selected_values = tree2.item(selected_item, 'values')  # Get the values of the selected item
+            selected_value = selected_values[0]
+            item = str(selected_value)
+            print(item)
+
 
         menu_items = tk.Label(manage_inventory_window, text="Menu")
         menu_items.pack()
@@ -352,7 +346,7 @@ def create_window1():
         tree.heading("Employee ID", text="Employee ID")
         tree.pack(fill="none", side="right", anchor='n')
         tree.place(x=400,y=150)
-        tree.bind("<ButtonRelease-1>", on_select)
+        tree.bind("<ButtonRelease-1>", on_select1)
         # View Menu
         view_table("Menu")
 
@@ -372,16 +366,23 @@ def create_window1():
         tree2.heading("Quantity", text="Quantity")
         tree2.pack(fill="none", side="right", anchor='n')
         tree2.place(x=400,y=550)
-        tree2.bind("<ButtonRelease-1>", on_select)
+        tree2.bind("<ButtonRelease-1>", on_select2)
         # View Inventory Items
         view_table2("Inventory")
 
+
+
+
+
+
         addBtn2 = tk.Button(manage_inventory_window, text="Add New Item", command=create2)
         addBtn2.place(x=300, y=800)
-        plus_Btn = tk.Button(manage_inventory_window, text="Increase Quantity Selected Item", command=back_page)
+        plus_Btn = tk.Button(manage_inventory_window, text="Increase Quantity Selected Item", command=increase)
         plus_Btn.place(x=500, y=800)
-        minusBtn = tk.Button(manage_inventory_window, text="Decrease Quantity Selected Item", command=back_page)
+        minusBtn = tk.Button(manage_inventory_window, text="Decrease Quantity Selected Item", command=decrease)
         minusBtn.place(x=700, y=800)
+        deleteBtn2 = tk.Button(manage_inventory_window, text="Delete Selected Item", command=delete2)
+        deleteBtn2.place(x=900, y=800)
 
         delete_button4 = tk.Button(manage_inventory_window, text="Back", command=back_page)
         delete_button4.place(x=660, y=900)
@@ -561,7 +562,7 @@ def create_window1():
             Main.create_employee(id, first_name, last_name, role, email, age, phone_number, bank_account_number,
                                  available_item)
             create_employee_window.destroy()
-            create_window1()
+            manage_employees()
             
 
 
@@ -628,12 +629,12 @@ def create_window1():
             # Call a method in main to create the user
             Main.delete(id[0])
             delete_window.destroy()
-            create_window1()
+            manage_employees()
             
 
         def back_page():
             delete_window.destroy()
-            create_window1()
+            manage_employees()
             
 
 
@@ -679,6 +680,54 @@ def create_window1():
         delete_button2.place(x=650,y=800)
 
         delete_window.mainloop()
+
+    def delete_inventory_item(new_item):
+        new_delete_window = tk.Tk()
+        new_delete_window.configure(bg="light blue")
+        new_delete_window.geometry("1420x1200")
+
+        new_delete_window.title("Are You Sure You Want To Delete This Item?")
+        warning = tk.Label(new_delete_window,
+                           text="Are you sure you want to delete the following item? This cannot be undone.")
+        warning.place(x=500, y=0)
+
+        def delete_item():
+
+            # Call a method in main to create the user
+            Main.delete_inventory_item(new_item)
+            new_delete_window.destroy()
+            manage_inventory()
+
+        def back_page():
+            new_delete_window.destroy()
+            manage_employees()
+
+        def view_inventory():
+            tree = ttk.Treeview(new_delete_window, show="headings")
+            tree["columns"] = ("Item", "Quantity")  # Replace with your column names
+            tree.column("Item", width=100, anchor=CENTER)
+            tree.heading("Item", text="Item")
+            tree.column("Quantity", width=100, anchor=CENTER)
+            tree.heading("Quantity", text="Quantity")
+            tree.pack(fill="none", expand=True, anchor=CENTER)
+            tree.place()
+
+            # Fetch data from the database
+            rows = Main.view_inventory(new_item)
+            # Clear existing data in the Treeview
+            for row in tree.get_children():
+                tree.delete(row)
+            # Insert fetched data into the Treeview
+            for row in rows:
+                tree.insert('', 'end', values=row)
+
+        view_inventory()
+        delete_button1 = tk.Button(new_delete_window, text="Delete Item", command=delete_item)
+        delete_button1.place(x=650, y=700)
+        delete_button2 = tk.Button(new_delete_window, text="Back", command=back_page)
+        delete_button2.place(x=650, y=800)
+
+        new_delete_window.mainloop()
 
 
     def employee_check():
@@ -797,7 +846,7 @@ def create_window1():
             # Call a method in main to update the employee
             Main.update_employee(id, update_listColumns, update_listValues)
             update_window.destroy()
-            create_window1()
+            manage_employees()
             
 
         first_name_label = tk.Label(update_window, text="Updating information for: " + str(id[0]))
