@@ -265,7 +265,9 @@ def create_customer(customer_email, first_name, last_name):
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
-def create_menu(inventory_item, quantity):
+
+
+def create_inventory(inventory_item, quantity):
     try:
         cafe = mysql.connector.connect(
             host="127.0.0.1",  # Hostname (equivalent to localhost)
@@ -293,7 +295,7 @@ def create_menu(inventory_item, quantity):
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
-def create_inventory(inventory_item, quantity):
+def create_menu(item, add_on, price, employee_id):
     try:
         cafe = mysql.connector.connect(
             host="127.0.0.1",  # Hostname (equivalent to localhost)
@@ -308,9 +310,9 @@ def create_inventory(inventory_item, quantity):
         cursor = cafe.cursor()
 
 
-        inventory_insert = "INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES (%s, %s)"
-        inventory_values = (inventory_item, quantity)
-        cursor.execute(inventory_insert, inventory_values)
+        menu_insert = "INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES (%s, %s, %s, %s)"
+        menu_values = (item, add_on, price, employee_id)
+        cursor.execute(menu_insert, menu_values)
 
         print("created item")
         cafe.commit()
@@ -381,7 +383,62 @@ def change_quantity(item, changeBy):
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
+def update_menu(item, updateListColumns, updateListValues):
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected")
 
+        cursor = cafe.cursor()
+        i = 0
+        statement = "UPDATE Menu SET"
+        print(updateListColumns)
+        print(updateListValues)
+        while i < len(updateListColumns)-1:
+            statement+=" "
+            statement+=updateListColumns[i]
+            statement+=" = "
+            if isinstance(updateListValues[i], str):
+                statement+="'"
+                statement+= updateListValues[i]
+                statement += "'"
+            else :
+                statement+=updateListValues[i]
+            statement+=","
+            i=i+1
+        print(i)
+        statement += " "
+        statement += updateListColumns[i]
+        statement += " = "
+        if isinstance(updateListValues[i], str):
+            statement += "'"
+            statement += updateListValues[i]
+            statement += "'"
+        else:
+            statement += updateListValues[i]
+        statement += " WHERE item = '"
+        statement += item
+        statement += "';"
+
+
+        print(statement)
+        employee_update = statement
+        cursor.execute(statement)
+
+        print("updated menu")
+        cafe.commit()
+
+        # Fetch all rows from the result
+        cursor.close()
+
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
 
 def update_employee(id, updateListColumns, updateListValues):
     try:
@@ -496,6 +553,34 @@ def delete_inventory_item(item):
     except mysql.connector.Error as e:
         print("Cannot connect to database:", e)
 
+def delete_menu_item(item):
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected")
+
+        cursor = cafe.cursor()
+
+        query = "DELETE FROM Menu WHERE item = %s"
+        values = (item,)
+        cursor.execute(query, values)
+
+        cafe.commit()
+        print("deleted item")
+
+        # Fetch all rows from the result
+        cursor.close()
+        cafe.close()
+
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+
 def view_employee(id):
     try:
         cafe = mysql.connector.connect(
@@ -539,6 +624,35 @@ def view_inventory(item):
 
         print(item)
         statement = "SELECT * FROM Inventory WHERE inventory_item = %s"
+        values = (item,)
+        cursor.execute(statement, values)
+
+        # Fetch all rows from the result
+        rows = cursor.fetchall()
+        cursor.close()
+        cafe.close()
+
+        return rows
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+
+def view_menu(item):
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+        print("Connected")
+
+        cursor = cafe.cursor()
+
+        print(item)
+        print(item)
+        statement = "SELECT * FROM Menu WHERE item = %s"
         values = (item,)
         cursor.execute(statement, values)
 

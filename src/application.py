@@ -147,63 +147,41 @@ def create_window1():
 
 
         def create_menu():
-            first_name = first_name_entry.get()
-            last_name = last_name_entry.get()
-            role = role_entry.get()
-            email = email_entry.get()
-            age = age_entry.get()
-            phone_number = phone_number_entry.get()
-            bank_account_number = bank_account_number_entry.get()
-            available_item = available_item_entry.get()
+            item = item_entry.get()
+            add_on = add_on_entry.get()
+            price = price_entry.get()
+            employee_id = employee_id_entry.get()
+            Main.create_menu(item, add_on, price, employee_id)
             create_menu_item_window.destroy()
-            create_window1()
+            manage_inventory()
 
 
-        first_name_label = tk.Label(create_menu_item_window, text="First Name:")
-        first_name_label.grid(row=0, column=0, padx=10, pady=5)
-        first_name_entry = tk.Entry(create_menu_item_window)
-        first_name_entry.grid(row=0, column=1, padx=10, pady=5)
+        item_label = tk.Label(create_menu_item_window, text="Item:")
+        item_label.grid(row=0, column=0, padx=10, pady=5)
+        item_entry = tk.Entry(create_menu_item_window)
+        item_entry.grid(row=0, column=1, padx=10, pady=5)
 
-        last_name_label = tk.Label(create_menu_item_window, text="Last Name:")
-        last_name_label.grid(row=1, column=0, padx=10, pady=5)
-        last_name_entry = tk.Entry(create_menu_item_window)
-        last_name_entry.grid(row=1, column=1, padx=10, pady=5)
+        add_on_label = tk.Label(create_menu_item_window, text="Add On:")
+        add_on_label.grid(row=1, column=0, padx=10, pady=5)
+        add_on_entry = tk.Entry(create_menu_item_window)
+        add_on_entry.grid(row=1, column=1, padx=10, pady=5)
 
-        role_label = tk.Label(create_menu_item_window, text="Role:")
-        role_label.grid(row=2, column=0, padx=10, pady=5)
-        role_entry = tk.Entry(create_menu_item_window)
-        role_entry.grid(row=2, column=1, padx=10, pady=5)
+        price_label = tk.Label(create_menu_item_window, text="Price:")
+        price_label.grid(row=2, column=0, padx=10, pady=5)
+        price_entry = tk.Entry(create_menu_item_window)
+        price_entry.grid(row=2, column=1, padx=10, pady=5)
 
-        email_label = tk.Label(create_menu_item_window, text="Email:")
-        email_label.grid(row=3, column=0, padx=10, pady=5)
-        email_entry = tk.Entry(create_menu_item_window)
-        email_entry.grid(row=3, column=1, padx=10, pady=5)
+        employee_id_label = tk.Label(create_menu_item_window, text="Employee ID:")
+        employee_id_label.grid(row=3, column=0, padx=10, pady=5)
+        employee_id_entry = tk.Entry(create_menu_item_window)
+        employee_id_entry.grid(row=3, column=1, padx=10, pady=5)
 
-        age_label = tk.Label(create_menu_item_window, text="Age:")
-        age_label.grid(row=4, column=0, padx=10, pady=5)
-        age_entry = tk.Entry(create_menu_item_window)
-        age_entry.grid(row=4, column=1, padx=10, pady=5)
 
-        phone_number_label = tk.Label(create_menu_item_window, text="Phone Number:")
-        phone_number_label.grid(row=5, column=0, padx=10, pady=5)
-        phone_number_entry = tk.Entry(create_menu_item_window)
-        phone_number_entry.grid(row=5, column=1, padx=10, pady=5)
-
-        bank_account_number_label = tk.Label(create_menu_item_window, text="Bank Account Number:")
-        bank_account_number_label.grid(row=6, column=0, padx=10, pady=5)
-        bank_account_number_entry = tk.Entry(create_menu_item_window)
-        bank_account_number_entry.grid(row=6, column=1, padx=10, pady=5)
-
-        available_item_label = tk.Label(create_menu_item_window, text="Available Item:")
-        available_item_label.grid(row=7, column=0, padx=10, pady=5)
-        available_item_entry = tk.Entry(create_menu_item_window)
-        available_item_entry.grid(row=7, column=1, padx=10, pady=5)
-
-        create_button = tk.Button(create_menu_item_window, text="Create Employee", command=create_menu)
-        create_button.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
+        create_button = tk.Button(create_menu_item_window, text="Create Menu Item", command=create_menu)
+        create_button.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
 
         back_button = tk.Button(create_menu_item_window, text="Back", command=back_page)
-        back_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
+        back_button.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
 
         create_menu_item_window.mainloop()
 
@@ -291,6 +269,10 @@ def create_window1():
             manage_inventory_window.destroy()
             create_inventory_item()
 
+        def delete1():
+            manage_inventory_window.destroy()
+            delete_menu_item(item)
+
         def delete2():
             manage_inventory_window.destroy()
             delete_inventory_item(item)
@@ -316,6 +298,10 @@ def create_window1():
             manage_inventory_window.destroy()
             Main.change_quantity(item, -1)
             manage_inventory()
+
+        def update():
+            manage_inventory_window.destroy()
+            update_menu(item)
 
         def on_select1(event):
             global selected_value
@@ -352,9 +338,9 @@ def create_window1():
 
         addBtn = tk.Button(manage_inventory_window, text="Add New Item", command=create1)
         addBtn.place(x=300, y=400)
-        updateBtn = tk.Button(manage_inventory_window, text="Update Selected Item", command=back_page)
+        updateBtn = tk.Button(manage_inventory_window, text="Update Selected Item", command=update)
         updateBtn.place(x=500, y=400)
-        deleteBtn = tk.Button(manage_inventory_window, text="Delete Selected Item", command=back_page)
+        deleteBtn = tk.Button(manage_inventory_window, text="Delete Selected Item", command=delete1)
         deleteBtn.place(x=700, y=400)
 
         inventory_items = tk.Label(manage_inventory_window, text="Inventory")
@@ -700,7 +686,7 @@ def create_window1():
 
         def back_page():
             new_delete_window.destroy()
-            manage_employees()
+            manage_inventory()
 
         def view_inventory():
             tree = ttk.Treeview(new_delete_window, show="headings")
@@ -728,6 +714,58 @@ def create_window1():
         delete_button2.place(x=650, y=800)
 
         new_delete_window.mainloop()
+
+    def delete_menu_item(new_item):
+        menu_delete_window = tk.Tk()
+        menu_delete_window.configure(bg="light blue")
+        menu_delete_window.geometry("1420x1200")
+
+        menu_delete_window.title("Are You Sure You Want To Delete This Item?")
+        warning = tk.Label(menu_delete_window,
+                           text="Are you sure you want to delete the following item? This cannot be undone.")
+        warning.place(x=500, y=0)
+
+        def delete_item():
+
+            # Call a method in main to create the user
+            Main.delete_menu_item(new_item)
+            menu_delete_window.destroy()
+            manage_inventory()
+
+        def back_page():
+            menu_delete_window.destroy()
+            manage_inventory()
+
+        def view_menu():
+            tree = ttk.Treeview(menu_delete_window, show="headings")
+            tree["columns"] = ("Item", "Add On", "Price", "Employee ID")  # Replace with your column names
+            tree.column("Item", width=100, anchor=CENTER)
+            tree.heading("Item", text="Item")
+            tree.column("Add On", width=100, anchor=CENTER)
+            tree.heading("Add On", text="Add On")
+            tree.column("Price", width=100, anchor=CENTER)
+            tree.heading("Price", text="Price")
+            tree.column("Employee ID", width=100, anchor=CENTER)
+            tree.heading("Employee ID", text="Employee ID")
+            tree.pack(fill="none", expand=True, anchor=CENTER)
+            tree.place()
+
+            # Fetch data from the database
+            rows = Main.view_menu(new_item)
+            # Clear existing data in the Treeview
+            for row in tree.get_children():
+                tree.delete(row)
+            # Insert fetched data into the Treeview
+            for row in rows:
+                tree.insert('', 'end', values=row)
+
+        view_menu()
+        delete_button1 = tk.Button(menu_delete_window, text="Delete Item", command=delete_item)
+        delete_button1.place(x=650, y=700)
+        delete_button2 = tk.Button(menu_delete_window, text="Back", command=back_page)
+        delete_button2.place(x=650, y=800)
+
+        menu_delete_window.mainloop()
 
 
     def employee_check():
@@ -763,6 +801,91 @@ def create_window1():
         back_button.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
 
         employee_check.mainloop()
+
+    def update_menu(item):
+        menu_update_window = tk.Tk()
+        menu_update_window.configure(bg="light blue")
+
+        menu_update_window.title("Update Menu Information: Only enter information for what you want to update")
+
+        menu_label = tk.Label(menu_update_window, text="Current Menu Info", font=subheading_font, bg="light blue")
+        menu_label.pack()
+        menu_label.place(x=600, y=0)
+        tree3 = ttk.Treeview(menu_update_window, show="headings")
+        tree3["columns"] = ("Item", "Add On", "Price", "Employee ID")  # Replace with your column names
+        tree3.column("Item", width=55)
+        tree3.heading("Item", text="Item")
+        tree3.column("Add On", width=55)
+        tree3.heading("Add On", text="Add On")
+        tree3.column("Price", width=55)
+        tree3.heading("Price", text="Price")
+        tree3.column("Employee ID", width=55)
+        tree3.heading("Employee ID", text="Employee ID")
+        tree3.pack(fill="none", expand=True)
+        tree3.place(x=500, y=50)
+        # Fetch data from the database
+        rows = Main.view_menu(item)
+        print(str(rows))
+        # Clear existing data in the Treeview
+        for row in tree3.get_children():
+            tree3.delete(row)
+        # Insert fetched data into the Treeview
+        for row in rows:
+            tree3.insert('', 'end', values=row)
+
+        def back():
+            menu_update_window.destroy()
+            manage_inventory()
+
+        def update_new():
+            update_listColumns = []
+            update_listValues = []
+            add_on = add_on_entry.get()
+            if (len(add_on) != 0):
+                update_listColumns.append("add_on")
+                update_listValues.append(add_on)
+            price = price_entry.get()
+            if (len(price) != 0):
+                update_listColumns.append("price")
+                update_listValues.append(price)
+            employee_id = employee_id_entry.get()
+            if (len(employee_id) != 0):
+                update_listColumns.append("employee_id")
+                update_listValues.append(employee_id)
+
+            # Call a method in main to update the employee
+            Main.update_menu(item, update_listColumns, update_listValues)
+            menu_update_window.destroy()
+            manage_inventory()
+
+        item_label = tk.Label(menu_update_window, text="Updating information for: " + item)
+        item_label.grid(row=0, column=0, padx=10, pady=5)
+
+        add_on_label = tk.Label(menu_update_window, text="Add On:")
+        add_on_label.grid(row=1, column=0, padx=10, pady=5)
+        add_on_entry = tk.Entry(menu_update_window)
+        add_on_entry.grid(row=1, column=1, padx=10, pady=5)
+
+        price_label = tk.Label(menu_update_window, text="Price:")
+        price_label.grid(row=2, column=0, padx=10, pady=5)
+        price_entry = tk.Entry(menu_update_window)
+        price_entry.grid(row=2, column=1, padx=10, pady=5)
+
+        employee_id_label = tk.Label(menu_update_window, text="Employee ID:")
+        employee_id_label.grid(row=3, column=0, padx=10, pady=5)
+        employee_id_entry = tk.Entry(menu_update_window)
+        employee_id_entry.grid(row=3, column=1, padx=10, pady=5)
+
+
+
+
+        submit_button = tk.Button(menu_update_window, text="Update Menu Item", command=update_new)
+        submit_button.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
+
+        back_button = tk.Button(menu_update_window, text="Back", command=back)
+        back_button.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
+
+        menu_update_window.mainloop()
 
     def update(id):
         update_window = tk.Tk()
@@ -805,6 +928,10 @@ def create_window1():
         # Insert fetched data into the Treeview
         for row in rows:
             tree3.insert('', 'end', values=row)
+
+        def back():
+            update_window.destroy()
+            manage_employees()
 
         def update_employee():
             update_listColumns=[]
@@ -849,8 +976,8 @@ def create_window1():
             manage_employees()
             
 
-        first_name_label = tk.Label(update_window, text="Updating information for: " + str(id[0]))
-        first_name_label.grid(row=0, column=0, padx=10, pady=5)
+        info_label = tk.Label(update_window, text="Updating information for: " + str(id[0]))
+        info_label.grid(row=0, column=0, padx=10, pady=5)
 
         first_name_label = tk.Label(update_window, text="First Name:")
         first_name_label.grid(row=1, column=0, padx=10, pady=5)
@@ -894,6 +1021,9 @@ def create_window1():
 
         submit_button = tk.Button(update_window, text="Update Employee", command=update_employee)
         submit_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
+
+        back_button = tk.Button(update_window, text="Back", command=back)
+        back_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
 
         update_window.mainloop()
 
