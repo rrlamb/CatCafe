@@ -322,7 +322,7 @@ def create_window1():
             create_window1()
 
 
-        info_label = tk.Label(update_window, text="Updating information for: " + str(id[0]))
+        info_label = tk.Label(update_window, text="Updating information for Employee ID: " + str(id[0]))
         info_label.grid(row=0, column=0, padx=10, pady=5)
 
         first_name_label = tk.Label(update_window, text="First Name:")
