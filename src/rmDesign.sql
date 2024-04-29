@@ -76,51 +76,6 @@ CREATE TABLE Ingredient(
       ON DELETE CASCADE
    );
 
-DROP PROCEDURE IF EXISTS Low_Inventory;
-DROP TRIGGER IF EXISTS CustomerReward;
-
-DELIMITER //
-CREATE TRIGGER CustomerReward
-BEFORE UPDATE
-On Customer
-FOR EACH ROW
-BEGIN
-	IF NEW.points >= 1000 THEN
-		SET NEW.available_reward = "Turkey Club";
-	ELSEIF NEW.points >= 750 THEN
-		SET NEW.available_reward = "Chicken Salad";
-	ELSEIF NEW.points >= 500 THEN
-		SET NEW.available_reward = "Avocado Toast";
-	ELSEIF NEW.points >= 250 THEN
-		SET NEW.available_reward = "Iced Coffee";
-	ELSEIF NEW.points >= 150 THEN
-		SET NEW.available_reward = "Hot Coffee";
-	ELSE
-		SET NEW.available_reward = "Water";
-	END IF;
-END;
-//
-DELIMITER ;
-
-
-DELIMITER //
-
-CREATE PROCEDURE Low_Inventory(IN item_name VARCHAR(25), OUT num_return INT)
-BEGIN
-    SELECT quantity
-    INTO num_return
-    FROM Inventory
-    WHERE inventory_item = item_name;
-
-    IF num_return <= 5 THEN
-		SET num_return = 1;
-	ELSE
-		SET num_return = 0;
-	END IF;
-END;//
-DELIMITER ;
-
-
 
 INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('john.smith@gmail.com', 'John', 'Smith', 'Garfield');
 INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('jane.ross@gmail.com', 'Jane', 'Ross', 'Blaise');

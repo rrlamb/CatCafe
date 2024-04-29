@@ -1,0 +1,9 @@
+The database management system is MySQL Workbench. To run the code it must have a user named “catcafe” with the
+password “CoffeeCatSandwich” and have all privileges.There needs to be a connection for host name 127.0.0.1 and
+port 3306. There then needs to be a database called CatCafeInfo.
+
+The database needs to beset up. The basic data and sql queries that create the tables are in the project as an sql
+file. There is also the trigger that is stored within the database, but the code is in an sql file in the project.
+
+To run the application run the application file. The application.py file will run access the DB with the main file
+where the sql queries are.
