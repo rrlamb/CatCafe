@@ -1387,7 +1387,7 @@ def create_window1():
         delete_button2 = tk.Button(manage_employees_window, text="Update User", command=check_id)
         delete_button2.place(x=650, y=800)
         delete_button3 = tk.Button(manage_employees_window, text="Delete User", command=delete_user)
-        delete_button3.place(x=750, y=800)
+        delete_button3.place(x=775, y=800)
         delete_button4 = tk.Button(manage_employees_window, text="Back", command=back_page)
         delete_button4.place(x=660, y=900)
 
