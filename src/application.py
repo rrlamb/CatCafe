@@ -1533,9 +1533,9 @@ def create_window1():
         plus_Btn = tk.Button(manage_inventory_window, text="Increase Quantity Selected Item", command=increase)
         plus_Btn.place(x=500, y=800)
         minusBtn = tk.Button(manage_inventory_window, text="Decrease Quantity Selected Item", command=decrease)
-        minusBtn.place(x=700, y=800)
+        minusBtn.place(x=800, y=800)
         deleteBtn2 = tk.Button(manage_inventory_window, text="Delete Selected Item", command=delete2)
-        deleteBtn2.place(x=900, y=800)
+        deleteBtn2.place(x=1100, y=800)
 
         delete_button4 = tk.Button(manage_inventory_window, text="Back", command=back_page)
         delete_button4.place(x=660, y=900)
