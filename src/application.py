@@ -832,33 +832,33 @@ def create_window1():
         print(id)
         new_id = (id,)
         # Employee Window
-        employee = tk.Tk()
-        employee.configure(bg="light blue")
-        employee.geometry("1420x1200")
+        employee_x = tk.Tk()
+        employee_x.configure(bg="light blue")
+        employee_x.geometry("1420x1200")
         # Header saying name of window
-        label3 = tk.Label(employee, text="Employee View", font=heading_font, foreground="white", bg="light blue")
+        label3 = tk.Label(employee_x, text="Employee View", font=heading_font, foreground="white", bg="light blue")
         label3.pack()
-        employee.title("Employee View")
+        employee_x.title("Employee View")
 
         def back():
-            employee.destroy()
+            employee_x.destroy()
             create_window1()
 
         def update2():
-            employee.destroy()
+            employee_x.destroy()
             update(new_id)
 
 
-        backBtn = tk.Button(employee, text="Back", command=back, bg="light blue")
+        backBtn = tk.Button(employee_x, text="Back", command=back, bg="light blue")
         backBtn.pack()
         backBtn.place(x=750, y=1000)
 
-        updateBtn = tk.Button(employee, text="Update", command=update2, bg="light blue")
+        updateBtn = tk.Button(employee_x, text="Update", command=update2, bg="light blue")
         updateBtn.pack()
         updateBtn.place(x=1125, y=925)
 
         #Turkey Club Menu Item
-        turkeyclub_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
+        turkeyclub_label = tk.Label(employee_x, text="0", font=("Georgia", 20), bg="light blue")
         turkeyclub_label.pack()
         turkeyclub_label.place(x=250, y=100)
 
@@ -871,25 +871,25 @@ def create_window1():
             if current > 0:
                 turkeyclub_label["text"] = str(current - 1)
 
-        turkey_price = tk.Label(employee, text="1. Turkey Club: $12.25 ", font=subheading_font, bg="light blue")
+        turkey_price = tk.Label(employee_x, text="1. Turkey Club: $12.25 ", font=subheading_font, bg="light blue")
         turkey_price.pack()
         turkey_price.place(x=0, y=100)
 
-        incBtn = tk.Button(employee, text="+", command=inc, bg="light blue")
-        decBtn = tk.Button(employee, text="-", command=dec, bg="light blue")
+        incBtn = tk.Button(employee_x, text="+", command=inc, bg="light blue")
+        decBtn = tk.Button(employee_x, text="-", command=dec, bg="light blue")
         incBtn.pack()
         incBtn.place(x=300, y=100)
         decBtn.pack()
         decBtn.place(x=350, y=100)
 
-        club_edits = tk.Text(employee, width=50, height=1.5)
+        club_edits = tk.Text(employee_x, width=50, height=1.5)
         club_edits.insert("1.0", "Modifications:")
         club_edits.pack()
         club_edits.place(x=400, y=100)
 
         #Avocado Toast Menu Item
 
-        toast_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
+        toast_label = tk.Label(employee_x, text="0", font=("Georgia", 20), bg="light blue")
         toast_label.pack()
         toast_label.place(x=250, y=200)
 
@@ -902,24 +902,24 @@ def create_window1():
             if current > 0:
                 toast_label["text"] = str(current - 1)
 
-        avocado_price = tk.Label(employee, text="2. Avocado Toast: $8.50 ", font=subheading_font, bg="light blue")
+        avocado_price = tk.Label(employee_x, text="2. Avocado Toast: $8.50 ", font=subheading_font, bg="light blue")
         avocado_price.pack()
         avocado_price.place(x=0, y=200)
 
-        incBtn_toast = tk.Button(employee, text="+", command=inc_toast, bg="light blue")
-        decBtn_toast = tk.Button(employee, text="-", command=dec_toast, bg="light blue")
+        incBtn_toast = tk.Button(employee_x, text="+", command=inc_toast, bg="light blue")
+        decBtn_toast = tk.Button(employee_x, text="-", command=dec_toast, bg="light blue")
         incBtn_toast.pack()
         incBtn_toast.place(x=300, y=200)
         decBtn_toast.pack()
         decBtn_toast.place(x=350, y=200)
 
-        toast_edits = tk.Text(employee, width=50, height=1.5)
+        toast_edits = tk.Text(employee_x, width=50, height=1.5)
         toast_edits.insert("1.0", "Modifications:")
         toast_edits.pack()
         toast_edits.place(x=400, y=200)
 
         #Chicken Ceasar Salad Menu Item
-        salad_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
+        salad_label = tk.Label(employee_x, text="0", font=("Georgia", 20), bg="light blue")
         salad_label.pack()
         salad_label.place(x=250, y=300)
 
@@ -932,25 +932,25 @@ def create_window1():
             if current > 0:
                 salad_label["text"] = str(current - 1)
 
-        salad_price = tk.Label(employee, text="3. Chicken Salad: $10.75 ", font=subheading_font, bg="light blue")
+        salad_price = tk.Label(employee_x, text="3. Chicken Salad: $10.75 ", font=subheading_font, bg="light blue")
         salad_price.pack()
         salad_price.place(x=0, y=300)
 
-        incBtn_salad = tk.Button(employee, text="+", command=inc_salad, bg="light blue")
-        decBtn_salad = tk.Button(employee, text="-", command=dec_salad, bg="light blue")
+        incBtn_salad = tk.Button(employee_x, text="+", command=inc_salad, bg="light blue")
+        decBtn_salad = tk.Button(employee_x, text="-", command=dec_salad, bg="light blue")
         incBtn_salad.pack()
         incBtn_salad.place(x=300, y=300)
         decBtn_salad.pack()
         decBtn_salad.place(x=350, y=300)
 
-        salad_edits = tk.Text(employee, width=50, height=1.5)
+        salad_edits = tk.Text(employee_x, width=50, height=1.5)
         salad_edits.insert("1.0", "Modifications:")
         salad_edits.pack()
         salad_edits.place(x=400, y=300)
 
         #Water Cup Menu Item
 
-        water_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
+        water_label = tk.Label(employee_x, text="0", font=("Georgia", 20), bg="light blue")
         water_label.pack()
         water_label.place(x=250, y=400)
 
@@ -963,24 +963,24 @@ def create_window1():
             if current > 0:
                 water_label["text"] = str(current - 1)
 
-        water_price = tk.Label(employee, text="4. Water Cup: FREE", font=subheading_font, bg="light blue")
+        water_price = tk.Label(employee_x, text="4. Water Cup: FREE", font=subheading_font, bg="light blue")
         water_price.pack()
         water_price.place(x=0, y=400)
 
-        incBtn_water = tk.Button(employee, text="+", command=inc_water, bg="light blue")
-        decBtn_water = tk.Button(employee, text="-", command=dec_water, bg="light blue")
+        incBtn_water = tk.Button(employee_x, text="+", command=inc_water, bg="light blue")
+        decBtn_water = tk.Button(employee_x, text="-", command=dec_water, bg="light blue")
         incBtn_water.pack()
         incBtn_water.place(x=300, y=400)
         decBtn_water.pack()
         decBtn_water.place(x=350, y=400)
 
-        water_edits = tk.Text(employee, width=50, height=1.5)
+        water_edits = tk.Text(employee_x, width=50, height=1.5)
         water_edits.insert("1.0", "Modifications:")
         water_edits.pack()
         water_edits.place(x=400, y=400)
 
         #Iced Coffee Menu Item
-        iced_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
+        iced_label = tk.Label(employee_x, text="0", font=("Georgia", 20), bg="light blue")
         iced_label.pack()
         iced_label.place(x=250, y=500)
 
@@ -993,24 +993,24 @@ def create_window1():
             if current > 0:
                 iced_label["text"] = str(current - 1)
 
-        iced_price = tk.Label(employee, text="5. Iced Coffee: $4.50", font=subheading_font, bg="light blue")
+        iced_price = tk.Label(employee_x, text="5. Iced Coffee: $4.50", font=subheading_font, bg="light blue")
         iced_price.pack()
         iced_price.place(x=0, y=500)
 
-        incBtn_iced = tk.Button(employee, text="+", command=inc_iced, bg="light blue")
-        decBtn_iced = tk.Button(employee, text="-", command=dec_iced, bg="light blue")
+        incBtn_iced = tk.Button(employee_x, text="+", command=inc_iced, bg="light blue")
+        decBtn_iced = tk.Button(employee_x, text="-", command=dec_iced, bg="light blue")
         incBtn_iced.pack()
         incBtn_iced.place(x=300, y=500)
         decBtn_iced.pack()
         decBtn_iced.place(x=350, y=500)
 
-        iced_edits = tk.Text(employee, width=50, height=1.5)
+        iced_edits = tk.Text(employee_x, width=50, height=1.5)
         iced_edits.insert("1.0", "Modifications:")
         iced_edits.pack()
         iced_edits.place(x=400, y=500)
 
         #Hot Coffee Menu Item
-        hot_label = tk.Label(employee, text="0", font=("Georgia", 20), bg="light blue")
+        hot_label = tk.Label(employee_x, text="0", font=("Georgia", 20), bg="light blue")
         hot_label.pack()
         hot_label.place(x=250, y=600)
 
@@ -1023,26 +1023,26 @@ def create_window1():
             if current > 0:
                 hot_label["text"] = str(current - 1)
 
-        hot_price = tk.Label(employee, text="6. Hot Coffee: $3.50", font=subheading_font, bg="light blue")
+        hot_price = tk.Label(employee_x, text="6. Hot Coffee: $3.50", font=subheading_font, bg="light blue")
         hot_price.pack()
         hot_price.place(x=0, y=600)
 
-        incBtn_hot = tk.Button(employee, text="+", command=inc_hot, bg="light blue")
-        decBtn_hot = tk.Button(employee, text="-", command=dec_hot, bg="light blue")
+        incBtn_hot = tk.Button(employee_x, text="+", command=inc_hot, bg="light blue")
+        decBtn_hot = tk.Button(employee_x, text="-", command=dec_hot, bg="light blue")
         incBtn_hot.pack()
         incBtn_hot.place(x=300, y=600)
         decBtn_hot.pack()
         decBtn_hot.place(x=350, y=600)
 
-        hot_edits = tk.Text(employee, width=50, height=1.5)
+        hot_edits = tk.Text(employee_x, width=50, height=1.5)
         hot_edits.insert("1.0", "Modifications:")
         hot_edits.pack()
         hot_edits.place(x=400, y=600)
 
-        email_label = tk.Label(employee, text="Customer Email (if applicable): ", font=subheading_font, bg="light blue")
+        email_label = tk.Label(employee_x, text="Customer Email (if applicable): ", font=subheading_font, bg="light blue")
         email_label.pack()
         email_label.place(x=0, y=700)
-        customer_email = tk.Text(employee, width=50, height=1.5)
+        customer_email = tk.Text(employee_x, width=50, height=1.5)
         customer_email.pack()
         customer_email.place(x=300, y=700)
 
@@ -1054,7 +1054,7 @@ def create_window1():
             # Do something with the selected data
             print("Selected row:", selected_values[0])
 
-        tree = ttk.Treeview(employee, show="headings")
+        tree = ttk.Treeview(employee_x, show="headings")
         tree["columns"] = ("Item", "Quantity")
         tree.heading("Item", text="Item")
         tree.heading("Quantity", text="Quantity")
@@ -1073,22 +1073,22 @@ def create_window1():
                 tree.insert('', 'end', values=row)
 
         # View Inventory Items
-        inventory_items = tk.Label(employee, text="Inventory", font=subheading_font, bg="light blue")
+        inventory_items = tk.Label(employee_x, text="Inventory", font=subheading_font, bg="light blue")
         inventory_items.pack()
         inventory_items.place(x=1100, y=50)
         view_table("Inventory")
 
-        tree2 = ttk.Treeview(employee, show="headings")
+        tree2 = ttk.Treeview(employee_x, show="headings")
         tree2["columns"] = ("Customer Name", "Cat Name")
         tree2.heading("Customer Name", text="Customer Name")
         tree2.heading("Cat Name", text="Cat Name")
         tree2.pack(fill="none", side="right", anchor='n')
         tree2.place(x=957, y=390)
 
-        employee_label = tk.Label(employee, text="Employee Info", font=subheading_font, bg="light blue")
+        employee_label = tk.Label(employee_x, text="Employee Info", font=subheading_font, bg="light blue")
         employee_label.pack()
         employee_label.place(x=1100, y=625)
-        tree3 = ttk.Treeview(employee, show="headings")
+        tree3 = ttk.Treeview(employee_x, show="headings")
         tree3["columns"] = ("ID", "First Name", "Last Name", "Role", "Email", "Age",
                            "Phone Number", "Bank Account Number", "Available Item")  # Replace with your column names
         tree3.column("ID", width=55)
@@ -1132,7 +1132,7 @@ def create_window1():
                 tree2.insert('', 'end', values=row)
 
         # View Inventory Items
-        customercat = tk.Label(employee, text="Customer and Cat:", font=subheading_font, bg="light blue")
+        customercat = tk.Label(employee_x, text="Customer and Cat:", font=subheading_font, bg="light blue")
         customercat.pack()
         customercat.place(x=1075, y=340)
         view_join_table()
@@ -1187,23 +1187,26 @@ def create_window1():
             toast_label["text"] = 0
             turkeyclub_label["text"] = 0
 
+
             if Main.inventory_low():
-                low_items = tk.Label(employee, text="LOW INVENTORY ITEMS: ", font=subheading_font, foreground='red',
+                low_items = tk.Label(employee_x, text="LOW INVENTORY ITEMS: ", font=subheading_font, foreground='red',
                                      bg="light blue")
                 low_items.pack()
                 low_items.place(x=100, y=900)
                 result = Main.inventory_low()
                 my_string = ' , '.join([str(x) for x in result])
-                low_items_list = tk.Label(employee, text=my_string, font=subheading_font, foreground='red',
+                low_items_list = tk.Label(employee_x, text=my_string, font=subheading_font, foreground='red',
                                           bg="light blue")
                 low_items_list.pack()
                 low_items_list.place(x=350, y=900)
 
-            final_cost_label = tk.Label(employee, text="Total Cost: $" + str(total_cost), font=subheading_font,
+
+
+            final_cost_label = tk.Label(employee_x, text="Total Cost: $" + str(total_cost), font=subheading_font,
                                         bg="light blue")
             final_cost_label.pack()
             final_cost_label.place(x=200, y=775)
-            earned_points_label = tk.Label(employee,
+            earned_points_label = tk.Label(employee_x,
                                            text="Total Points Earned from Order: " + str(total_points) + " points",
                                            font=subheading_font, bg="light blue")
             earned_points_label.pack()
@@ -1211,9 +1214,19 @@ def create_window1():
 
             view_table("Inventory")
 
-        complete_order_btn = tk.Button(employee, text="Complete Order!", command=complete_order, bg="light blue")
+        def new():
+            employee_x.destroy()
+            employee(id)
+
+
+        complete_order_btn = tk.Button(employee_x, text="Complete Order", command=complete_order, bg="light blue")
         complete_order_btn.pack()
         complete_order_btn.place(x=750, y=705)
+
+        new_order_btn = tk.Button(employee_x, text="New Order", command=new, bg="light blue")
+        new_order_btn.pack()
+        new_order_btn.place(x=750, y=805)
+
 
         employee.mainloop()
 
