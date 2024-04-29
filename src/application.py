@@ -1023,7 +1023,7 @@ def create_window1():
         submit_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
 
         back_button = tk.Button(update_window, text="Back", command=back)
-        back_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
+        back_button.grid(row=9, column=9, columnspan=2, padx=10, pady=10)
 
         update_window.mainloop()
 
