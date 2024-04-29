@@ -1454,16 +1454,26 @@ def create_window1():
 
 
 
+        quantity1_entry = tk.Entry(manage_inventory_window)
+        quantity1_entry.place(x=700, y=800)
+
+
+        quantity2_entry = tk.Entry(manage_inventory_window)
+        quantity2_entry.place(x=1000, y=800)
 
 
         def increase():
+            quantity1 = quantity1_entry.get()
             manage_inventory_window.destroy()
-            Main.change_quantity(item, 50)
+            Main.change_quantity(item, quantity1)
             manage_inventory()
 
         def decrease():
+            quantity2 = quantity2_entry.get()
+            print(quantity2)
+            quantity2
             manage_inventory_window.destroy()
-            Main.change_quantity(item, -1)
+            Main.change_quantity(item, -abs(quantity2))
             manage_inventory()
 
         def update():
@@ -1530,9 +1540,9 @@ def create_window1():
 
         addBtn2 = tk.Button(manage_inventory_window, text="Add New Item", command=create2)
         addBtn2.place(x=300, y=800)
-        plus_Btn = tk.Button(manage_inventory_window, text="Increase Quantity Selected Item", command=increase)
+        plus_Btn = tk.Button(manage_inventory_window, text="Increase Quantity Selected Item By:", command=increase)
         plus_Btn.place(x=500, y=800)
-        minusBtn = tk.Button(manage_inventory_window, text="Decrease Quantity Selected Item", command=decrease)
+        minusBtn = tk.Button(manage_inventory_window, text="Decrease Quantity Selected Item By:", command=decrease)
         minusBtn.place(x=800, y=800)
         deleteBtn2 = tk.Button(manage_inventory_window, text="Delete Selected Item", command=delete2)
         deleteBtn2.place(x=1100, y=800)

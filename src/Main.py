@@ -367,6 +367,7 @@ def change_quantity(item, changeBy):
 
         cursor = cafe.cursor()
         i = 0
+        print(changeBy)
         statement = "UPDATE Inventory SET Quantity = Quantity + %s WHERE inventory_item = %s"
         values = (changeBy, item)
 
