@@ -166,6 +166,7 @@ def check_employee(id):
             database="CatCafeInfo",
         )
         print("Connected")
+        print(id)
 
         cursor = cafe.cursor()
 
@@ -596,6 +597,8 @@ def view_employee(id):
         cursor = cafe.cursor()
 
         statement = "SELECT * FROM Employee WHERE id = %s"
+        print("id passed is")
+        print(id[0])
         values = (id[0],)
         cursor.execute(statement, values)
 
@@ -737,6 +740,12 @@ def main():
         cat_data = ('cattttttt', 'Shorthair', 'F', 4, 5, '1111111111')
 
         cursor.execute(cat_insert, cat_data)
+
+        # Insert Manager Value Into Employee
+        employee_insert = "INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number, available_item) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        employee_data = (626, 'Anne', 'Rice', 'manager', 'vampChronicles@gmail.com', 80, 1234567890, '123', 'book')
+
+        cursor.execute(employee_insert, employee_data)
 
         cafe.commit()
 
