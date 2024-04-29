@@ -77,7 +77,10 @@ CREATE TABLE Ingredient(
    );
 
 INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('john.smith@gmail.com', 'John', 'Smith', 'Garfield');
-INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('jane.ross@gmail.com', 'Jane', 'Ross', 'Garfield');
+INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('jane.ross@gmail.com', 'Jane', 'Ross', 'Blaise');
+INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('adam.lyons@gmail.com', 'Adam', 'Lyons', 'Ember');
+INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('susie.burns@gmail.com', 'Susie', 'Burns', 'Lucy');
+INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('michael.green@gmail.com', 'Michael', 'Green', 'Smokey');
 
  INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Bread', 50);
  INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Turkey', 50);
@@ -96,9 +99,18 @@ INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('ja
  INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES ('Iced Coffee', 'NULL', 4.50, 0);
  INSERT IGNORE INTO Menu (item, add_on, price, employee_id) VALUES ('Hot Coffee', 'NULL', 3.50, 0);
 
-INSERT IGNORE INTO Cat (cat_name, breed, sex, age, weight, adoption_phone_number) VALUES ('Garfield', 'Shorthair', 'M', 4, 5, '3045551234');
+INSERT IGNORE INTO Cat (cat_name, breed, sex, age, weight, adoption_phone_number) VALUES ('Garfield', 'American Shorthair', 'M', 4, 9, '3045551234');
+INSERT IGNORE INTO Cat (cat_name, breed, sex, age, weight, adoption_phone_number) VALUES ('Blaise', 'Persian', 'M', 2, 8, '3045551234');
+INSERT IGNORE INTO Cat (cat_name, breed, sex, age, weight, adoption_phone_number) VALUES ('Lucy', 'British Shorthair', 'F', 4, 7, '3045554567');
+INSERT IGNORE INTO Cat (cat_name, breed, sex, age, weight, adoption_phone_number) VALUES ('Ember', 'Devon Rex', 'M', 1, 6, '3045554567');
+INSERT IGNORE INTO Cat (cat_name, breed, sex, age, weight, adoption_phone_number) VALUES ('Smokey', 'Russian Blue', 'F', 6, 11, '3045557890');
 
-INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number) VALUES ('1', 'Amanda', 'Morris', 'Caretaker', 'amandamorris89@gmail.com', 55, 3045556789, '11111111111111111');
+INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number) VALUES ('1', 'Amanda', 'Morris', 'Caretaker', 'amandamorris@gmail.com', 55, 3045556789, '11111111111111111');
+INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number) VALUES ('2', 'Tim', 'Snyder', 'Caretaker', 'timsynder@gmail.com', 30, 304551111, '22222222222222222');
+INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number) VALUES ('3', 'Trinity', 'Maynard', 'Manager', 'trinitymaynard@gmail.com', 45, 3045552222, '33333333333333333');
+INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number) VALUES ('4', 'Miles', 'Atlas', 'Cashier', 'milesatlas@gmail.com', 20, 3045553333, '44444444444444444');
+INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number) VALUES ('5', 'Sarah', 'Clemens', 'Cashier', 'sarahclemens@gmail.com', 26, 3045554444, '55555555555555555');
+
 
 INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Turkey Club', 'Bread', '1');
 INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Turkey Club', 'Turkey', '1');
@@ -119,3 +131,7 @@ INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('
 INSERT IGNORE INTO Ingredient (menu_item, inventory_item, employee_id) VALUES ('Hot Coffee', 'Coffee', '1');
 
 INSERT IGNORE INTO Caretaker (cat_name, employee_id) VALUES ('Garfield', '1');
+INSERT IGNORE INTO Caretaker (cat_name, employee_id) VALUES ('Blaise', '1');
+INSERT IGNORE INTO Caretaker (cat_name, employee_id) VALUES ('Lucy', '2');
+INSERT IGNORE INTO Caretaker (cat_name, employee_id) VALUES ('Ember', '2');
+INSERT IGNORE INTO Caretaker (cat_name, employee_id) VALUES ('Smokey', '2');

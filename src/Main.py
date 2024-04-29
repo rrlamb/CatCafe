@@ -196,7 +196,8 @@ def check_manager(id):
 
         cursor = cafe.cursor()
 
-        query = "SELECT * FROM Employee WHERE id = %s && role = 'manager'"
+        print(id)
+        query = "SELECT * FROM Employee WHERE id = %s && role = 'Manager'"
         cursor.execute(query, (id,))
 
         #cursor.execute(f"SELECT * FROM Employee WHERE id = {id}")
@@ -742,11 +743,8 @@ def main():
 
         cursor.execute(cat_insert, cat_data)
 
-        # Insert Manager Value Into Employee
-        employee_insert = "INSERT IGNORE INTO Employee (id, first_name, last_name, role, email, age, phone_number, bank_account_number, available_item) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        employee_data = (626, 'Anne', 'Rice', 'manager', 'vampChronicles@gmail.com', 80, 1234567890, '123', 'book')
 
-        cursor.execute(employee_insert, employee_data)
+
 
         cafe.commit()
 
