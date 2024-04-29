@@ -1458,7 +1458,7 @@ def create_window1():
 
         def increase():
             manage_inventory_window.destroy()
-            Main.change_quantity(item, 1)
+            Main.change_quantity(item, 50)
             manage_inventory()
 
         def decrease():
