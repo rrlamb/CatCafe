@@ -83,6 +83,10 @@ INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('ad
 INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('susie.burns@gmail.com', 'Susie', 'Burns', 'Lucy');
 INSERT IGNORE INTO Customer (email, first_name, last_name, cat_name) VALUES ('michael.green@gmail.com', 'Michael', 'Green', 'Smokey');
 
+UPDATE Customer SET Customer.points = 0 WHERE Customer.email IS NOT NULL AND Customer.points IS NULL LIMIT 10000;
+UPDATE Customer SET Customer.points = 1500 WHERE Customer.email = "adam.lyons@gmail.com";
+
+
  INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Bread', 50);
  INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Turkey', 50);
  INSERT IGNORE INTO Inventory (inventory_item, quantity) VALUES ('Lettuce', 50);

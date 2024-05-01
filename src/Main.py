@@ -1,6 +1,8 @@
 import mysql.connector
 
 import random
+
+
 def view_table(table_name):
     try:
         cafe = mysql.connector.connect(
@@ -41,6 +43,30 @@ def view_join_table():
         cursor = cafe.cursor()
 
         cursor.execute(f"SELECT Customer.first_name, Cat.cat_name FROM Customer, Cat WHERE Customer.email = Cat.customer_name")
+
+        # Fetch all rows from the result
+        rows = cursor.fetchall()
+        cursor.close()
+        cafe.close()
+
+        return rows
+    except mysql.connector.Error as e:
+        print("Cannot connect to database:", e)
+
+def most_valued_customer():
+    try:
+        cafe = mysql.connector.connect(
+            host="127.0.0.1",  # Hostname (equivalent to localhost)
+            port=3306,  # Port number
+            user="catcafe",  # MySQL user
+            password="CoffeeCatSandwich",
+            # Password (you can provide your password here if any) # Database/schema (no specific database selected)
+            database="CatCafeInfo",
+        )
+
+        cursor = cafe.cursor()
+
+        cursor.execute("SELECT Customer.first_name, Customer.last_name, Customer.points, Customer.available_reward FROM Customer WHERE Customer.points = (SELECT MAX(points) FROM Customer)")
 
         # Fetch all rows from the result
         rows = cursor.fetchall()

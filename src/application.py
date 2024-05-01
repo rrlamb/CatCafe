@@ -1565,6 +1565,50 @@ def create_window1():
 
 
         manage_inventory_window.mainloop()
+
+    def most_value():
+        most_value_window = tk.Tk()
+        most_value_window.configure(bg="light blue")
+        most_value_window.geometry("1420x1200")
+
+        most_value_window.title("Most Dedicated Customer")
+        warning = tk.Label(most_value_window, text="Customer with the Most Points so far")
+        warning.place(x=650, y=0)
+
+
+
+        def back_page():
+            most_value_window.destroy()
+            create_window1()
+
+        tree = ttk.Treeview(most_value_window, show="headings")
+        tree["columns"] = ("First Name", "Last Name", "Points", "Available Reward")  # Replace with your column names
+        tree.column("First Name", width=110, anchor=CENTER)
+        tree.heading("First Name", text="First Name")
+        tree.column("Last Name", width=110, anchor=CENTER)
+        tree.heading("Last Name", text="Last Name")
+        tree.column("Points", width=110, anchor=CENTER)
+        tree.heading("Points", text="Points")
+        tree.column("Available Reward", width=110, anchor=CENTER)
+        tree.heading("Available Reward", text="Available Reward")
+
+        tree.place(x=500,y=100)
+
+        # Fetch data from the database
+        rows = Main.most_valued_customer()
+        # Clear existing data in the Treeview
+        for row in tree.get_children():
+            tree.delete(row)
+        # Insert fetched data into the Treeview
+        for row in rows:
+            tree.insert('', 'end', values=row)
+
+
+        back = tk.Button(most_value_window, text="Back", command=back_page)
+        back.place(x=660, y=500)
+
+        most_value_window.mainloop()
+
     def exit():
         window1.destroy()
 
@@ -1584,12 +1628,16 @@ def create_window1():
         window1.destroy()
         manage_check2()
 
+    def value():
+        window1.destroy()
+        most_value()
 
 
     customerBtn = tk.Button(window1, text="Customer", command=cust, bg="light blue")
     employeeBtn = tk.Button(window1, text="Employee", command=employ, bg="light blue")
     manageEmployeesBtn = tk.Button(window1, text="Manage Employees", command=manage1, bg="light blue")
     manageInventory = tk.Button(window1, text="Manage Inventory", command=manage2, bg="light blue")
+    valuedCustomer = tk.Button(window1, text ="View Most Valued Customer", command=value, bg="light blue")
     exitBtn = tk.Button(window1, text="Exit", command=exit, bg="light blue")
 
     employeeBtn.pack()
@@ -1600,6 +1648,8 @@ def create_window1():
     manageEmployeesBtn.place(x=670, y=300)
     manageInventory.pack()
     manageInventory.place(x=670, y=400)
+    valuedCustomer.pack()
+    valuedCustomer.place(x=670, y=500)
     exitBtn.pack()
     exitBtn.place(x=670, y=750)
 
